@@ -1,0 +1,40 @@
+{
+  "name": "blazur",
+  "version": "0.0.0",
+  "description": "blazur ======",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maseh87/blazur.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maseh87/blazur/issues"
+  },
+  "homepage": "https://github.com/maseh87/blazur",
+  "devDependencies": {
+    "jshint-stylish": "^0.4.0",
+    "tiny-lr": "0.0.9",
+    "gulp-livereload": "^2.1.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-concat": "^2.3.3",
+    "gulp-jshint": "^1.7.1",
+    "gulp-notify": "^1.4.0",
+    "gulp-stylus": "^1.0.5",
+    "gulp": "^3.8.6",
+    "gulp-nodemon": "^1.0.4"
+  },
+  "dependencies": {
+    "q": "^1.0.1",
+    "morgan": "^1.1.1",
+    "passport": "^0.2.0",
+    "express": "^4.6.1",
+    "passport-github": "^0.1.5",
+    "mongoose": "^3.8.13",
+    "body-parser": "^1.4.3"
+  }
+}
