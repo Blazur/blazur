@@ -2,15 +2,20 @@
 describe('app.home module', function() {
 
   describe('HomeController', function() {
-    var $scope, Home;
+    var $scope, $state, Home;
 
-    beforeEach(module('ui.router'));
-    beforeEach(module('app.home'));
+    beforeEach(module('app'));
 
     beforeEach(inject(function($injector) {
       var $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
+      var $templateCache = $injector.get('$templateCache');
+
+      $templateCache.put('scripts/home/home.tpl.html', '');
+
+      $state = $injector.get('$state');
       $scope = $rootScope.$new();
+
       Home = $controller('HomeController', {
         $scope: $scope
       })
@@ -18,6 +23,17 @@ describe('app.home module', function() {
 
     it('should have a name property', function() {
       expect(Home.name).to.be.a('string');
+    });
+
+    it('should have a app.home state', function() {
+      $state.go('app.home');
+      $scope.$digest();
+      var currentState = $state.current;
+
+      expect(currentState.name).to.be('app.home');
+      expect(currentState.url).to.be('/');
+      expect(currentState.controller).to.be('HomeController as home');
+      expect(currentState.templateUrl).to.be('scripts/home/home.tpl.html');
     });
   })
 });

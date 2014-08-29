@@ -40,6 +40,13 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
+gulp.task('travis', $.shell.task([
+  'karma start karma.conf.js --single-run --browsers PhantomJS'
+]));
+
+gulp.task('test', $.shell.task([
+    'karma start karma.conf.js'
+]));
 // Lint JavaScript
 gulp.task('jshint', function () {
   return gulp.src(['app/scripts/**/*.js', 'app/scripts/**/*Test.js'])
