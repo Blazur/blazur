@@ -3,3 +3,4 @@ app/components
 .DS_Store
 .tmp/
 coverage/
+.sass-cache/
