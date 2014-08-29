@@ -1,40 +1,49 @@
 {
-  "name": "blazur",
-  "version": "0.0.0",
-  "description": "blazur ======",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/maseh87/blazur.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maseh87/blazur/issues"
-  },
-  "homepage": "https://github.com/maseh87/blazur",
   "devDependencies": {
-    "jshint-stylish": "^0.4.0",
-    "tiny-lr": "0.0.9",
-    "gulp-livereload": "^2.1.0",
+    "apache-server-configs": "^2.7.1",
+    "browser-sync": "^1.3.0",
+    "del": "^0.1.2",
+    "expect.js": "^0.3.1",
+    "gulp": "^3.8.5",
+    "gulp-autoprefixer": "^0.0.8",
+    "gulp-cache": "^0.2.1",
+    "gulp-changed": "^1.0.0",
+    "gulp-csso": "^0.2.9",
+    "gulp-flatten": "^0.0.2",
+    "gulp-if": "^1.2.1",
+    "gulp-imagemin": "^1.0.0",
+    "gulp-jshint": "^1.6.3",
+    "gulp-load-plugins": "^0.5.3",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-replace": "^0.4.0",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-shell": "^0.2.9",
+    "gulp-size": "^1.0.0",
+    "gulp-stylus": "^1.3.0",
     "gulp-uglify": "^0.3.1",
-    "gulp-concat": "^2.3.3",
-    "gulp-jshint": "^1.7.1",
-    "gulp-notify": "^1.4.0",
-    "gulp-stylus": "^1.0.5",
-    "gulp": "^3.8.6",
-    "gulp-nodemon": "^1.0.4"
+    "gulp-uncss": "^0.4.5",
+    "gulp-useref": "^0.6.0",
+    "jshint-stylish": "^0.4.0",
+    "karma": "^0.12.23",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.6",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-mocha": "^0.1.9",
+    "karma-mocha-reporter": "^0.3.1",
+    "karma-ng-html2js-preprocessor": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-safari-launcher": "^0.1.1",
+    "mocha": "^1.21.4",
+    "opn": "^1.0.0",
+    "psi": "^0.1.2",
+    "require-dir": "^0.1.0",
+    "run-sequence": "^0.3.6"
   },
-  "dependencies": {
-    "q": "^1.0.1",
-    "morgan": "^1.1.1",
-    "passport": "^0.2.0",
-    "express": "^4.6.1",
-    "passport-github": "^0.1.5",
-    "mongoose": "^3.8.13",
-    "body-parser": "^1.4.3"
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true,
+  "scripts": {
+    "test": "gulp travis"
   }
 }
