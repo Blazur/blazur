@@ -1,7 +1,9 @@
 // Karma configuration
-// Generated on Wed Jul 16 2014 00:28:54 GMT-0700 (PDT)
+// Generated on Thu Aug 28 2014 20:19:03 GMT-0700 (PDT)
 
 module.exports = function(config) {
+    'use strict';
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,33 +17,34 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'client/lib/angular/angular.js',
-        'client/lib/angular-mock/angular-mock.js',
+        'app/components/angular/angular.js',
+        'app/components/angular-mocks/angular-mocks.js',
+        'app/components/angular-ui-router/release/angular-ui-router.js',
+        'app/components/ngFx/dist/ngFx.js',
+        'app/components/angular-classy/angular-classy.js',
 
-        'client/app/**/*.js',
-
-        'specs/client/**/*Spec.js'
+        'node_modules/expect.js/index.js',
+        'app/scripts/**/*.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-        'karma.conf.js',
-        'gulpfile.js',
-        'node_module/**/*.**'
+        'karma.conf.js'
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'app/scripts/**/*.js': 'coverage'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha', 'coverage'],
 
 
     // web server port
@@ -63,11 +66,11 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'PhantomJS', 'Safari'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };

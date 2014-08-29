@@ -1,22 +1,27 @@
 {
   "name": "blazur",
-  "main": "index.js",
   "version": "0.0.0",
-  "homepage": "https://github.com/maseh87/blazur",
+  "homepage": "https://github.com/Hendrixer/blazur",
   "authors": [
-    "Mason <maseh87@gmail.com>"
+    "Hendrixer <willscottmoss@gmail.com>"
   ],
+  "description": "freelance work",
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "client/lib",
     "test",
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.20",
-    "polymer": "Polymer/Polymer#~0.3.4"
+    "angular": "~1.2.23",
+    "angular-ui-router": "~0.2.11",
+    "ngFx": "~1.0.4",
+    "lodash": "~2.4.1",
+    "angular-classy": "~0.4.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.23"
   }
 }
