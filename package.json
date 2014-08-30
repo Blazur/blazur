@@ -46,7 +46,7 @@
   "private": true,
   "scripts": {
     "test": "gulp travis",
-    "postinstall": "bower install && gulp",
+    "postinstall": "bower install",
     "start": "node server.js"
   },
   "dependencies": {
