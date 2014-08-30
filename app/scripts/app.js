@@ -11,16 +11,27 @@
       });
   }];
 
-  var runBlock = ['$rootScope', '$state', function(Root, State) {
-
+  var runBlock = ['$rootScope', '$state' , 'UserFactory', function(Root, State, UserFactory) {
+    // do some auth check stuff here
   }];
 
   angular.module('app', [
     'ngFx',
     'ui.router',
-    'app.home'
+    'app.home',
+    'app.user'
   ])
   .config(configBlock)
-  .run(runBlock);
+  .run(runBlock)
+  .value('API', function(){
+    var api = {
+      dev: 'http://localhost:4000',
+      prod: '',
+      checkTokenUrl: function(env) {
+        return api[env] + '/validate';
+      }
+    };
+    return api;
+  });
 
 }());

@@ -17,11 +17,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'app/components/angular/angular.js',
-        'app/components/angular-mocks/angular-mocks.js',
-        'app/components/angular-ui-router/release/angular-ui-router.js',
-        'app/components/ngFx/dist/ngFx.js',
-        'app/components/angular-classy/angular-classy.js',
+        'bower_components/angular/angular.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'bower_components/angular-ui-router/release/angular-ui-router.js',
+        'bower_components/ngFx/dist/ngFx.js',
+        'bower_components/angular-classy/angular-classy.js',
 
         'node_modules/expect.js/index.js',
         'app/scripts/**/*.js'
