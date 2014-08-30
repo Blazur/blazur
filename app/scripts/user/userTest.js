@@ -18,7 +18,7 @@ describe('app.user module', function() {
       expect(User).to.be.an('object');
     });
 
-    it('should let users signout', function() {
+    xit('should let users signout', function() {
       expect(User.signout).to.be.a('function');
       $window.localStorage.setItem('bz','1234');
 
