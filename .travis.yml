@@ -7,5 +7,11 @@ before_install:
 - npm install -g gulp
 - npm install -g bower
 before_script:
-  - bower install
-
+- bower install
+deploy:
+  provider: heroku
+  api_key:
+    secure: fnhw5F8EsOfHlDEdBflUsdqzS9l2YVUMpgSfpLaQFXhaMoL+nzt2tvagqY8R6xfBA8VLoPH6TJVhqaqRv3PPiFePcCmR5frMXZ5Xolf8rmqu/MMV9EaGSrAJs8hfbJalnd84meXS1Sa2ukHffhyBdiZozQN5qpksRyvVkNoRUE4=
+  app: warm-lake-9782
+  on:
+    repo: Hendrixer/blazur
