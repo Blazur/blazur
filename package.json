@@ -41,14 +41,18 @@
     "run-sequence": "^0.3.6"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "0.10.x"
   },
   "private": true,
   "scripts": {
-    "test": "gulp travis"
+    "test": "gulp travis",
+    "postinstall": "bower install && gulp",
+    "start": "node server.js"
   },
   "dependencies": {
+    "bower": "^1.3.9",
     "express": "^4.8.6",
+    "gulp": "^3.8.7",
     "jwt-simple": "^0.2.0",
     "lodash": "^2.4.1",
     "mongoose": "^3.8.15",
