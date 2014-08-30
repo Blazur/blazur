@@ -47,6 +47,16 @@ gulp.task('travis', $.shell.task([
 gulp.task('test', $.shell.task([
     'karma start karma.conf.js'
 ]));
+
+gulp.task('api', function() {
+  process.env.NODE_ENV = 'development';
+  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+});
+
+gulp.task('api:prod', function() {
+  process.env.NODE_ENV = 'production';
+  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+});
 // Lint JavaScript
 gulp.task('jshint', function () {
   return gulp.src(['app/scripts/**/*.js', 'app/scripts/**/*Test.js'])
@@ -122,8 +132,7 @@ gulp.task('html', function () {
     // the next line to only include styles your project uses.
     .pipe($.if('*.css', $.uncss({
       html: [
-        'app/index.html',
-        'app/styleguide.html'
+        'app/index.html'
       ],
       // CSS Selectors for UnCSS to ignore
       ignore: [
@@ -140,7 +149,7 @@ gulp.task('html', function () {
     .pipe($.replace('components/components.css', 'components/main.min.css'))
     // .pipe($.replace('app/app.css', 'app/app.min.css'))
     // Minify Any HTML
-    .pipe($.if('*.html', $.minifyHtml()))
+    .pipe($.if('*.html', $.minifyHtml({ empty: true, spare: true })))
     // Output Files
     .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'html'}));
@@ -150,16 +159,17 @@ gulp.task('html', function () {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles'], function () {
+gulp.task('serve', ['styles', 'api'], function () {
   browserSync({
-    notify: false,
+    notify: true,
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: {
-      baseDir: ['.tmp', 'app']
-    }
+    // server: {
+      // baseDir: ['.tmp', 'app']
+      proxy: 'localhost:4000'
+    // }
   });
 
   gulp.watch(['app/**/*.html'], reload);
@@ -169,16 +179,17 @@ gulp.task('serve', ['styles'], function () {
 });
 
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], function () {
+gulp.task('serve:dist', ['default', 'api:prod'], function () {
   browserSync({
-    notify: false,
+    notify: true,
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: {
-      baseDir: 'dist'
-    }
+    // server: {
+      // baseDir: 'dist'
+      proxy: 'localhost:4000'
+    // }
 
   });
 });
@@ -195,7 +206,7 @@ gulp.task('pagespeed', pagespeed.bind(null, {
   // free (no API key) tier. You can use a Google
   // Developer API key if you have one. See
   // http://goo.gl/RkN0vE for info key: 'YOUR_API_KEY'
-  url: 'https://example.com',
+  url: 'http://closurelog.com',
   strategy: 'mobile'
 }));
 
