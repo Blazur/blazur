@@ -15,7 +15,18 @@
   ])
   .config(configBlock)
   .directive('ripple', function() {
-    function rippleLinkFn(scope, element) {
+    var colorHash = {
+      'primary': '#3f51b5',
+      'primaryDark': '#1a237e',
+      'primaryLight': '#7986cb',
+      'accent': '#ff4081',
+      'white': 'white'
+    };
+
+    function rippleLinkFn(scope, element, attr) {
+      var color = colorHash[attr.ripple] || 'lightgray';
+      var rippleDuration = attr.duration || 0.5;
+
       element.on('mousedown', function(e) {
         var touch  = angular.element('<div></div>');
 
@@ -42,7 +53,7 @@
             });
           }
 
-          TweenMax.to(touch, .5, a);
+          TweenMax.to(touch, rippleDuration, a);
         });
 
         touch.addClass('touch');
@@ -51,17 +62,19 @@
           'top': e.pageY-element[0].getBoundingClientRect().top + 'px',
           'left': e.pageX-element[0].getBoundingClientRect().left + 'px',
           'width': '0',
-          'height': '0'
+          'height': '0',
+          'background': color,
+          'opacity': '0.5'
         });
 
         element.append(touch);
 
-        TweenMax.to(touch, .5, {
+        TweenMax.to(touch, rippleDuration, {
           'height': size + 'px',
           'width': size + 'px',
           'margin-top': -(size)/2 + 'px',
           'margin-left': -(size)/2 + 'px',
-          'ease': Quart.easeOut,
+          'ease': Expo.easeOut,
           onComplete: function() {
             complete = true;
           }
@@ -81,16 +94,22 @@
       var main = angular.element(kids[2]);
 
       function closeMenu() {
-        body.classList.remove('open');
-        appbarElement.removeClass('open');
-        navdrawerContainer.removeClass('open');
+        setTimeout(function() {
+          body.classList.remove('open');
+          appbarElement.removeClass('open');
+          navdrawerContainer.removeClass('open');
+        }, 300);
       }
 
       function toggleMenu() {
-        body.classList.toggle('open');
-        appbarElement.toggleClass('open');
-        navdrawerContainer.toggleClass('open');
-        navdrawerContainer.addClass('opened');
+        setTimeout(function() {
+          body.classList.toggle('open');
+          appbarElement.toggleClass('open');
+          navdrawerContainer.toggleClass('open');
+          navdrawerContainer.toggleClass('shadow-2-right');
+          navdrawerContainer.toggleClass('primary');
+          navdrawerContainer.addClass('opened');
+        }, 300);
       }
 
       main.on('click', closeMenu);
