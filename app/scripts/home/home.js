@@ -4,14 +4,15 @@
   var configBlock = ['$stateProvider', function(State) {
     State
       .state('app.home', {
-        url: '/',
+        abstract: true,
         controller: 'HomeController as home',
         templateUrl: 'scripts/home/home.tpl.html'
       });
   }];
 
   angular.module('app.home', [
-    'classy'
+    'classy',
+    'app.home.landing'
   ])
   .config(configBlock)
   .directive('ripple', function() {
@@ -23,8 +24,9 @@
       'white': 'white'
     };
 
-    function rippleLinkFn(scope, element, attr) {
+    function rippleLinkFn(scope, element, attr, drawerCtrl) {
       var color = colorHash[attr.ripple] || 'lightgray';
+      var nowColor = element.css('background-color');
       var rippleDuration = attr.duration || 0.5;
 
       element.on('mousedown', function(e) {
@@ -49,11 +51,13 @@
               'ease': Sine.easeIn,
               onComplete: function(){
                 touch.remove();
+                // element.removeClass('primary');
               }
             });
           }
 
           TweenMax.to(touch, rippleDuration, a);
+          // TweenMax.to(element, rippleDuration, { background: color + ' !important' });
         });
 
         touch.addClass('touch');
@@ -79,9 +83,17 @@
             complete = true;
           }
         });
+
+        // if (attr.blend) {
+        //   var tl = new TimelineLite();
+        //   tl.fromTo(element, rippleDuration, { backgroundColor: nowColor }, {backgroundColor: color + '!important' });
+        // }
       });
     }
-    return rippleLinkFn;
+    return {
+      require: '^drawer',
+      link: rippleLinkFn
+    };
   })
   .directive('drawer', [function() {
     function drawerLinkFn(scope, elem) {
@@ -105,6 +117,7 @@
         setTimeout(function() {
           body.classList.toggle('open');
           appbarElement.toggleClass('open');
+
           navdrawerContainer.toggleClass('open');
           navdrawerContainer.toggleClass('shadow-2-right');
           navdrawerContainer.toggleClass('primary');
@@ -127,7 +140,12 @@
       });
     }
 
-    return drawerLinkFn;
+    return {
+      link: drawerLinkFn,
+      controller: function($scope) {
+        this.events = {};
+      }
+    };
   }])
   .classy.controller({
     name: 'HomeController',
@@ -136,6 +154,8 @@
 
     init: function() {
       this.name = 'name';
+      this.$.view = this.view = {};
+      this.view.message = 'messages'
     }
   });
 }());

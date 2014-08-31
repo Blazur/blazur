@@ -27,13 +27,14 @@
 
 
 <div drawer>
-  <header class="app-bar promote-layer">
+  <header class="app-bar promote-layer primary">
     <div class="app-bar-container">
       <button class="menu" ripple="white"><img src="images/hamburger.svg" alt="Menu"></button>
       <h1 class="logo"><strong>Dev</strong>keep</h1>
       <section class="app-bar-actions">
       <!-- Put App Bar Buttons Here -->
       <!-- e.g <button><i class="icon icon-star"></i></button> -->
+      {{ home.view.message }}
       </section>
     </div>
   </header>
@@ -41,14 +42,14 @@
   <nav class="navdrawer-container promote-layer">
     <h4 class="shadow-1 accent">Navigation</h4>
     <ul>
-      <li ui-sref-active="active"><a ui-sref="app.how" duration=".8" ripple>How it works</a></li>
-      <li ui-sref-active="active"><a ui-sref="app.home" duration=".8" ripple>Home</a></li>
-      <li ui-sref-active="active"><a ui-sref="app.faq" durantion=".8" ripple>FAQ</a></li>
+      <li ><a duration=".8" ripple>How it works</a></li>
+      <li ui-sref-active="active"><a ui-sref="app.home.landing" duration=".8" ripple>Home</a></li>
+      <li><a  durantion=".8" ripple>FAQ</a></li>
     </ul>
   </nav>
 
   <main>
-    <button class="button" duration=".8" ripple="accent">button</button>
+    <div ui-view></div>
   </main>
   <footer>
 
