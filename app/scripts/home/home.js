@@ -84,10 +84,11 @@
           }
         });
 
-        // if (attr.blend) {
-        //   var tl = new TimelineLite();
-        //   tl.fromTo(element, rippleDuration, { backgroundColor: nowColor }, {backgroundColor: color + '!important' });
-        // }
+        if (attr.blend) {
+          var tl = new TimelineLite();
+          var child = element.children()[0];
+          tl.fromTo([element, child], rippleDuration, { backgroundColor: nowColor }, {backgroundColor: color + '!important' });
+        }
       });
     }
     return {
@@ -155,7 +156,7 @@
     init: function() {
       this.name = 'name';
       this.$.view = this.view = {};
-      this.view.message = 'messages'
+      this.view.message = 'messages';
     }
   });
 }());

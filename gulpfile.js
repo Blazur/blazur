@@ -115,7 +115,8 @@ gulp.task('styles', function () {
     .pipe($.if('*.styl', $.stylus()))
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/styles'))
-    // .pipe(gulp.dest('./styles'))
+    .pipe($.if('*.css', $.csso()))
+    .pipe(gulp.dest('dist/styles'))
     .pipe($.size({title: 'styles'}));
 });
 
@@ -142,7 +143,7 @@ gulp.task('html', function () {
     })))
     // Concatenate And Minify Styles
     // In case you are still using useref build blocks
-    .pipe($.if('*.css', $.csso()))
+    // .pipe($.if('*.css', $.csso()))
     .pipe(assets.restore())
     .pipe($.useref())
     // Update Production Style Guide Paths
