@@ -1,25 +1,59 @@
-<div>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
-  <h1>{{ home.name }}</h1>
+<!--
+<nav id='nav' class="shadow-3">
+  <div class="logo g-medium--1 g-wide--1 ripple">
+    <img width="10%" class="logo-img" src="images/blazur_logo_66x100.png" alt="blazur logo">
+  </div>
+  <div class="navigation g-wide--1 g-wide--push-2 g-medium--3 g--last g-wide--last">
+    <ul>
+      <li class="ripple nav-link">Signin</li>
+      <li class="ripple nav-link"></li>
+      <li class="ripple nav-link">Contact</li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<header>
+  <div class="hero-overlay">
+    <div class="g-wide--3  g--centered">
+      <h1>We create beautiful software</h1>
+    </div>
+    <div></div>
+  </div>
+</header>
+
+ -->
+
+
+<div drawer>
+  <header class="app-bar promote-layer primary">
+    <div class="app-bar-container">
+      <button class="menu" ripple="white"><img src="images/hamburger.svg" alt="Menu"></button>
+      <h1 class="logo"><strong>Dev</strong>keep</h1>
+      <section class="app-bar-actions">
+      <!-- Put App Bar Buttons Here -->
+      <!-- e.g <button><i class="icon icon-star"></i></button> -->
+      {{ home.view.message }}
+      </section>
+    </div>
+  </header>
+
+  <nav class="navdrawer-container promote-layer">
+    <h4 class="shadow-1 accent">Navigation</h4>
+    <ul>
+      <li ><a duration=".8" ripple>How it works</a></li>
+      <li ui-sref-active="active"><a ui-sref="app.home.landing" duration=".8" ripple>Home</a></li>
+      <li><a  durantion=".8" ripple>FAQ</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div ui-view></div>
+  </main>
+  <footer>
+
+  </footer>
 </div>
+
+
