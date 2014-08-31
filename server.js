@@ -1,17 +1,18 @@
-var express = require('express');
+'use strict';
 
-var app = express();
-app.use(express.static('bower_components'));
+var app     = require('./server/main.js'),
+    server  = app.listen(app.get('port')),
+    ioAuth  = require('socketio-jwt'),
+    io      = require('socket.io').listen(server),
+    secret  = require('./server/config/config').jwt;
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(express.static('.tmp'));
-  app.use(express.static('app'));
+// io.set('authorization', ioAuth.authorize({
+//   secret: secret,
+//   handshake: true
+// }));
 
-} else {
-  app.use(express.static('dist'));
-}
+io.sockets.on('connection', function(socket) {
+  require('./server/api/user/socket/routes')(socket, io);
+});
 
-
-app.listen(4000);
-
-console.log('on port 4000');
+console.log('on port ', app.get('port'));
