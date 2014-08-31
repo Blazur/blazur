@@ -12,18 +12,23 @@ header.promote-layer.app-bar, div.app-bar-container
 
 .navdrawer-container.opened ul li
   border none
+  background-color primaryLight
+  margin-top 2px
+  margin-bottom 2px
   &.active
     background-color white
     border-right solid 4px accent
     & a
       color primary
-      height 67px
+      // height 67px
 
 
-.navdrawer-container.opened h4
-  height 67px
+// .navdrawer-container.opened h4
+  // height 67px
 
-.navdrawer-container:not(.opened) ui li.active
+.navdrawer-container:not(.opened)
+  border-top solid 2px accent
+  & ui li.active
   background-color white
   border-bottom 3px accent sold
   & a

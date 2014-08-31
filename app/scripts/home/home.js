@@ -28,6 +28,13 @@
       var color = colorHash[attr.ripple] || 'lightgray';
       var nowColor = element.css('background-color');
       var rippleDuration = attr.duration || 0.5;
+      var tagName = element[0].tagName;
+      if (tagName === 'HEADER') {
+        if (element.find('button')[0].offsetParent) {
+          element.removeAttr('ripple');
+          return;
+        }
+      }
 
       element.on('mousedown', function(e) {
         var touch  = angular.element('<div></div>');
@@ -51,13 +58,11 @@
               'ease': Sine.easeIn,
               onComplete: function(){
                 touch.remove();
-                // element.removeClass('primary');
               }
             });
           }
 
           TweenMax.to(touch, rippleDuration, a);
-          // TweenMax.to(element, rippleDuration, { background: color + ' !important' });
         });
 
         touch.addClass('touch');
