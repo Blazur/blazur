@@ -14,6 +14,7 @@
     'classy',
     'app.home.landing',
     'app.home.how',
+    'app.home.faq',
     'ngFx'
   ])
   .config(configBlock)
@@ -129,12 +130,12 @@
       }
 
       scope.$watch('reveal', function(newVal, oldVal) {
-        if(newVal === oldVal){
+        if(newVal.color === oldVal.color){
           return;
         }
 
-        var color = colorHash[newVal] || 'lightgray';
-        var oldColor = colorHash[oldVal];
+        var color = colorHash[newVal.color || newVal] || 'lightgray';
+        var oldColor = colorHash[oldVal.color];
         var touch  = angular.element('<div></div>');
         var size = element[0].clientWidth * 1.9;
         var a = {
@@ -174,12 +175,12 @@
           'margin-left': -(size)/2 + 'px',
           'ease': Expo.easeOut
         })
-        .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0);
+        .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0)
 
-        angular.element(document.body).find('nav').css('border-top', '2px solid ' + borderHash[newVal]);
+        angular.element(document.body).find('nav').css('border-top', '2px solid ' + borderHash[newVal.color]);
         child = element.children()[0];
         TweenMax.fromTo([element, child], rippleDuration, { backgroundColor: oldColor }, { backgroundColor: color + '!important' }, 1);
-      });
+      }, true);
     }
     return revealLinkFn;
   })
@@ -253,7 +254,7 @@
     inject: ['$scope'],
 
     init: function() {
-      this.$.reveal = 'primary';
+      this.$.reveal = { color: 'primary' };
     }
   });
 }());

@@ -4,7 +4,8 @@
     State
       .state('app.home.how', {
         url: '/how-it-works',
-        template: '<h1>How</h1>'
+        template: '<h1>How</h1>',
+        controller: 'HowController'
         // animation: {
         //   enter: 'slide-in-up',
         //   leave: 'slide-out-up',
@@ -14,6 +15,15 @@
       });
   }];
 
-  angular.module('app.home.how', [])
-  .config(configBlock);
+  angular.module('app.home.how', ['classy'])
+  .config(configBlock)
+  .classy.controller({
+    name: 'HowController',
+
+    inject: ['$scope'],
+
+    init: function() {
+      this.$.reveal.color = 'accent';
+    }
+  });
 }());

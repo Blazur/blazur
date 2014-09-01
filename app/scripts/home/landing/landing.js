@@ -4,6 +4,7 @@
     State
       .state('app.home.landing', {
         url: '/',
+        controller: 'LandingController',
         templateUrl: 'scripts/home/landing/landing.tpl.html'
         // animation: {
         //   enter: 'slide-in-up',
@@ -13,6 +14,13 @@
         // }
       });
   }];
-  angular.module('app.home.landing', [])
-  .config(configBlock);
+  angular.module('app.home.landing', ['classy'])
+  .config(configBlock)
+  .classy.controller({
+    name: 'LandingController',
+    init: function() {
+      this.$.reveal.color = 'primary';
+    },
+    inject: ['$scope']
+  });
 }());
