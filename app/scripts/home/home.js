@@ -175,7 +175,7 @@
           'margin-left': -(size)/2 + 'px',
           'ease': Expo.easeOut
         })
-        .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0)
+        .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0);
 
         angular.element(document.body).find('nav').css('border-top', '2px solid ' + borderHash[newVal.color]);
         child = element.children()[0];
