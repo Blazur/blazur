@@ -16,7 +16,7 @@
     name: 'FaqController',
     inject: ['$scope'],
     init: function() {
-      this.$.reveal.color = 'primaryDark';
+      this.$.reveal.color = 'accentDark';
     }
   });
 }());
