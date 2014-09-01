@@ -114,7 +114,8 @@
 
     var borderHash = {
       'accent': 'white',
-      'primary': '#ff4081'
+      'primary': '#ff4081',
+      'primaryDark': 'white'
     };
 
     function revealLinkFn(scope, element, attr) {
