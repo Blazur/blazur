@@ -13,7 +13,7 @@ module.exports = function(app, express, passport) {
   app.use(morgan('dev'));
   app.use(bdParser.json({ extended: true }));
 
-  // app.use(compress());
+  app.use(compress());
   app.use(express.static(__dirname + '/../../bower_components'));
 
   if (config.env === 'development') {

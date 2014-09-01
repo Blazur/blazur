@@ -1,0 +1,38 @@
+@media (min-width: 960px)
+  div.paper-button
+    margin-top 12px !important
+    margin-right 10px !important
+    width 120px !important
+
+div.paper-button
+  // display inline-block
+  position relative
+  width 60px
+  height 32px
+  line-height 32px
+  border-radius 2px
+  font-size 1.2em
+  background-color canvas
+  color #646464
+  text-transform uppercase
+  text-align center
+  padding 2px
+  margin-right 5px
+  margin-top 5px
+  &.narrow
+    width 60px
+  &.raised
+    transition box-shadow 0.2s cubic-bezier(0.4,0,0.2,1)
+    transition-delay 0.2s
+    shadow(1)
+  &.active
+    shadow(3)
+    transition-delay 0s
+  &:active
+    shadow(3)
+    transition-delay 0s
+
+
+
+
+

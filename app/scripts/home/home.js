@@ -30,7 +30,9 @@
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
       if (tagName === 'HEADER') {
-        if (element.find('button')[0].offsetParent) {
+        var button = element.find('button');
+
+        if (button[0].offsetParent) {
           element.removeAttr('ripple');
           return;
         }
@@ -116,7 +118,7 @@
           body.classList.remove('open');
           appbarElement.removeClass('open');
           navdrawerContainer.removeClass('open');
-        }, 300);
+        }, 150);
       }
 
       function toggleMenu() {
@@ -128,7 +130,7 @@
           navdrawerContainer.toggleClass('shadow-2-right');
           navdrawerContainer.toggleClass('primary');
           navdrawerContainer.addClass('opened');
-        }, 300);
+        }, 200);
       }
 
       main.on('click', closeMenu);
@@ -152,6 +154,21 @@
         this.events = {};
       }
     };
+  }])
+  .directive('paperButton', ['$timeout', function(timeout) {
+    function paperButtonLinkFn(scope, element) {
+      element.on('click', function() {
+        element.addClass('active');
+        timeout(function() {
+          element.removeClass('active');
+        }, 300);
+      });
+      scope.$on('$destroy', function() {
+        element.off('click');
+      });
+    }
+
+    return paperButtonLinkFn;
   }])
   .classy.controller({
     name: 'HomeController',

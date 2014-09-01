@@ -4,7 +4,7 @@
     State
       .state('app.home.landing', {
         url: '/',
-        template: '<h1>Home</h1>'
+        templateUrl: 'scripts/home/landing/landing.tpl.html'
       });
   }];
   angular.module('app.home.landing', [])

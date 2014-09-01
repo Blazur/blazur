@@ -4,6 +4,14 @@ nav h4
 .app-bar button:focus
   background none !important
 
+.app-bar-actions a
+  text-decoration none
+  margin-top 5px
+  margin-right 5px
+  &:hover, :link, :active
+    text-decoration none !important
+    color #646464
+
 header.promote-layer.app-bar, div.app-bar-container
   background-color primary
 
@@ -12,7 +20,6 @@ header.promote-layer.app-bar, div.app-bar-container
 
 .navdrawer-container.opened ul li
   border none
-  background-color primaryLight
   margin-top 2px
   margin-bottom 2px
   &.active
