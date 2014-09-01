@@ -5,14 +5,16 @@
     State
       .state('app.home', {
         abstract: true,
-        controller: 'HomeController as home',
+        controller: 'HomeController',
         templateUrl: 'scripts/home/home.tpl.html'
       });
   }];
 
   angular.module('app.home', [
     'classy',
-    'app.home.landing'
+    'app.home.landing',
+    'app.home.how',
+    'ngFx'
   ])
   .config(configBlock)
   .directive('ripple', function() {
@@ -66,7 +68,6 @@
 
           TweenMax.to(touch, rippleDuration, a);
         });
-
         touch.addClass('touch');
         touch.css({
           'position': 'absolute',
@@ -98,10 +99,89 @@
         }
       });
     }
-    return {
-      require: '^drawer',
-      link: rippleLinkFn
+
+    return rippleLinkFn;
+  })
+  .directive('reveal', function() {
+    var colorHash = {
+      'primary': '#3f51b5',
+      'primaryDark': '#1a237e',
+      'primaryLight': '#7986cb',
+      'accent': '#ff4081',
+      'white': 'white'
     };
+
+    var borderHash = {
+      'accent': 'white',
+      'primary': '#ff4081'
+    };
+
+    function revealLinkFn(scope, element, attr) {
+      var rippleDuration = attr.duration || 0.5;
+      var tagName = element[0].tagName;
+      if (tagName === 'HEADER') {
+        var button = element.find('button');
+
+        if (button[0].offsetParent) {
+          element.removeAttr('ripple');
+          return;
+        }
+      }
+
+      scope.$watch('reveal', function(newVal, oldVal) {
+        if(newVal === oldVal){
+          return;
+        }
+
+        var color = colorHash[newVal] || 'lightgray';
+        var oldColor = colorHash[oldVal];
+        var touch  = angular.element('<div></div>');
+        var size = element[0].clientWidth * 1.9;
+        var a = {
+          'opacity': '0'
+        };
+
+        size *= 1.2;
+        angular.extend(a, {
+          'height': size + 'px',
+          'width': size + 'px',
+          'marginTop': -(size)/2 + 'px',
+          'marginLeft': -(size)/2 + 'px',
+          'ease': Sine.easeIn,
+          onComplete: function(){
+            touch.remove();
+          }
+        });
+        // TweenMax.to(touch, rippleDuration, a);
+        touch.addClass('touch');
+        touch.css({
+          'position': 'absolute',
+          'top': '0', //e.pageY-element[0].getBoundingClientRect().top + 'px',
+          'left': '0', //e.pageX-element[0].getBoundingClientRect().left + 'px',
+          'width': '0',
+          'height': '0',
+          'background': color,
+          'opacity': '0.5'
+        });
+
+        element.append(touch);
+        var child;
+        var ripple = new TimelineMax();
+        ripple.to(touch, rippleDuration, {
+          'height': size + 'px',
+          'width': size + 'px',
+          'margin-top': -(size)/2 + 'px',
+          'margin-left': -(size)/2 + 'px',
+          'ease': Expo.easeOut
+        })
+        .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0)
+
+        angular.element(document.body).find('nav').css('border-top', '2px solid ' + borderHash[newVal]);
+        child = element.children()[0];
+        TweenMax.fromTo([element, child], rippleDuration, { backgroundColor: oldColor }, { backgroundColor: color + '!important' }, 1);
+      });
+    }
+    return revealLinkFn;
   })
   .directive('drawer', [function() {
     function drawerLinkFn(scope, elem) {
@@ -118,6 +198,8 @@
           body.classList.remove('open');
           appbarElement.removeClass('open');
           navdrawerContainer.removeClass('open');
+          navdrawerContainer.toggleClass('primary');
+
         }, 150);
       }
 
@@ -148,12 +230,7 @@
       });
     }
 
-    return {
-      link: drawerLinkFn,
-      controller: function($scope) {
-        this.events = {};
-      }
-    };
+    return drawerLinkFn;
   }])
   .directive('paperButton', ['$timeout', function(timeout) {
     function paperButtonLinkFn(scope, element) {
@@ -176,9 +253,7 @@
     inject: ['$scope'],
 
     init: function() {
-      this.name = 'name';
-      this.$.view = this.view = {};
-      this.view.message = 'messages';
+      this.$.reveal = 'primary';
     }
   });
 }());
