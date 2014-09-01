@@ -109,12 +109,20 @@
       'primaryDark': '#1a237e',
       'primaryLight': '#7986cb',
       'accent': '#ff4081',
+      'accentDark': '#c51162',
       'white': 'white'
     };
 
     var borderHash = {
       'accent': 'white',
-      'primary': '#ff4081'
+      'primary': '#ff4081',
+      'accentDark': 'white'
+    };
+
+    var origins = {
+      'accent': { x: 271, y: 126},
+      'primary': { x: 401, y:126 },
+      'accentDark': { x: 490, y:126 }
     };
 
     function revealLinkFn(scope, element, attr) {
@@ -154,11 +162,12 @@
           }
         });
         // TweenMax.to(touch, rippleDuration, a);
+        var coord = origins[newVal.color];
         touch.addClass('touch');
         touch.css({
           'position': 'absolute',
-          'top': '0', //e.pageY-element[0].getBoundingClientRect().top + 'px',
-          'left': '0', //e.pageX-element[0].getBoundingClientRect().left + 'px',
+          'top': coord.y-element[0].getBoundingClientRect().top + 'px',
+          'left': coord.x-element[0].getBoundingClientRect().left + 'px',
           'width': '0',
           'height': '0',
           'background': color,
