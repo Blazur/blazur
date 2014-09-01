@@ -125,12 +125,6 @@
       'accentDark': 'white'
     };
 
-    var origins = {
-      'accent': { x: 271, y: 126},
-      'primary': { x: 401, y:126 },
-      'accentDark': { x: 490, y:126 }
-    };
-
     function revealLinkFn(scope, element, attr, ctrl) {
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
@@ -166,12 +160,11 @@
             touch.remove();
           }
         });
-        // TweenMax.to(touch, rippleDuration, a);
-        var coord = origins[newVal.color];
+
         touch.addClass('touch');
         touch.css({
           'position': 'absolute',
-          'top': coord.y-element[0].getBoundingClientRect().top + 'px',
+          'top': 126-element[0].getBoundingClientRect().top + 'px',
           'left': ctrl.coords.x-element[0].getBoundingClientRect().left + 'px',
           'width': '0',
           'height': '0',
