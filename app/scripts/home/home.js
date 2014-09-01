@@ -27,11 +27,12 @@
       'white': 'white'
     };
 
-    function rippleLinkFn(scope, element, attr, drawerCtrl) {
+    function rippleLinkFn(scope, element, attr, ctrl) {
       var color = colorHash[attr.ripple] || 'lightgray';
       var nowColor = element.css('background-color');
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
+
       if (tagName === 'HEADER') {
         var button = element.find('button');
 
@@ -43,6 +44,8 @@
 
       element.on('mousedown', function(e) {
         var touch  = angular.element('<div></div>');
+
+        ctrl.coords.x = e.pageX;
 
         var size = element[0].clientWidth * 1.9;
         var complete = false;
@@ -101,7 +104,10 @@
       });
     }
 
-    return rippleLinkFn;
+    return {
+      require: '^drawer',
+      link: rippleLinkFn
+    };
   })
   .directive('reveal', function() {
     var colorHash = {
@@ -125,7 +131,7 @@
       'accentDark': { x: 490, y:126 }
     };
 
-    function revealLinkFn(scope, element, attr) {
+    function revealLinkFn(scope, element, attr, ctrl) {
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
       if (tagName === 'HEADER') {
@@ -136,7 +142,6 @@
           return;
         }
       }
-
       scope.$watch('reveal', function(newVal, oldVal) {
         if(newVal.color === oldVal.color){
           return;
@@ -167,7 +172,7 @@
         touch.css({
           'position': 'absolute',
           'top': coord.y-element[0].getBoundingClientRect().top + 'px',
-          'left': coord.x-element[0].getBoundingClientRect().left + 'px',
+          'left': ctrl.coords.x-element[0].getBoundingClientRect().left + 'px',
           'width': '0',
           'height': '0',
           'background': color,
@@ -191,7 +196,10 @@
         TweenMax.fromTo([element, child], rippleDuration, { backgroundColor: oldColor }, { backgroundColor: color + '!important' }, 1);
       }, true);
     }
-    return revealLinkFn;
+    return {
+      require: '^drawer',
+      link: revealLinkFn
+    };
   })
   .directive('drawer', [function() {
     function drawerLinkFn(scope, elem) {
@@ -240,7 +248,12 @@
       });
     }
 
-    return drawerLinkFn;
+    return {
+      controller: function($scope) {
+        this.coords = {};
+      },
+      link: drawerLinkFn
+    };
   }])
   .directive('paperButton', ['$timeout', function(timeout) {
     function paperButtonLinkFn(scope, element) {
@@ -264,6 +277,7 @@
 
     init: function() {
       this.$.reveal = { color: 'primary' };
+      this.$.coords = {};
     }
   });
 }());

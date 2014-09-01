@@ -12,6 +12,7 @@ describe('app.home module', function() {
       var $templateCache = $injector.get('$templateCache');
 
       $templateCache.put('scripts/home/home.tpl.html', '');
+      $templateCache.put('scripts/home/landing/landing.tpl.html', '');
 
       $state = $injector.get('$state');
       $scope = $rootScope.$new();
@@ -32,7 +33,7 @@ describe('app.home module', function() {
 
       expect(currentState.name).to.be('app.home.landing');
       expect(currentState.url).to.be('/');
-      // expect(currentState.controller).to.be('HomeController as home');
+      // expect(currentState.controller).to.be('HomeController');
       // expect(currentState.templateUrl).to.be('scripts/home/home.tpl.html');
     });
   })
