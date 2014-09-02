@@ -113,7 +113,7 @@ gulp.task('styles', function () {
     .on('error', console.error.bind(console))
     ))
     .pipe($.if('*.styl', $.stylus()))
-    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe($.autoprefixer())
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.if('*.css', $.csso()))
     .pipe(gulp.dest('dist/styles'))

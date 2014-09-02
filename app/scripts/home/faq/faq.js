@@ -6,7 +6,7 @@
       .state('app.home.faq', {
         url: '/faq',
         controller: 'FaqController',
-        template: '<h1>FAQ</h1>'
+        templateUrl: 'scripts/home/faq/faq.tpl.html'
       });
   }];
 
@@ -16,7 +16,7 @@
     name: 'FaqController',
     inject: ['$scope'],
     init: function() {
-      this.$.reveal.color = 'accentDark';
+      this.$.reveal.color = 'primaryDark';
     }
   });
 }());

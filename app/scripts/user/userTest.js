@@ -14,11 +14,11 @@ describe('app.user module', function() {
       });
     });
 
-    it('should be defined', function() {
+    it('should be an object', function() {
       expect(User).to.be.an('object');
     });
 
-    xit('should let users signout', function() {
+    it('should let users signout', function() {
       expect(User.signout).to.be.a('function');
       $window.localStorage.setItem('bz','1234');
 
@@ -26,8 +26,15 @@ describe('app.user module', function() {
       expect($window.localStorage.getItem('bz')).to.not.be.ok();
     });
 
-    xit('should know when a user is signed in', function() {
+    it('should know when a user is signed in', function() {
+      expect(User.isSignedIn).to.be.a('function');
+      $window.localStorage.setItem('bz', '1234');
 
+      expect(User.isSignedIn()).to.be(true);
+
+      User.signout();
+
+      expect(User.isSignedIn()).to.be(false);
     });
   })
 });

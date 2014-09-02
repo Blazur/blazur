@@ -7,10 +7,19 @@
   border 0
   outline 0
   background 0
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  -o-user-select none
   user-select none
+
+  -webkit-transition box-shadow .2s
+  -moz-transition box-shadow .2s
+  -ms-transition box-shadow .2s
+  -o-transition box-shadow .2s
   transition box-shadow .2s
   cursor pointer
-  .touch
-    background gray
-    pointer-events none
-    border-radius 100%
+  & .touch
+      background gray
+      pointer-events none
+      border-radius 100%

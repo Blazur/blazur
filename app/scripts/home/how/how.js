@@ -4,7 +4,7 @@
     State
       .state('app.home.how', {
         url: '/how-it-works',
-        template: '<h1>How</h1>',
+        templateUrl: 'scripts/home/how/how.tpl.html',
         controller: 'HowController'
         // animation: {
         //   enter: 'slide-in-up',
