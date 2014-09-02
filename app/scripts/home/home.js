@@ -278,8 +278,8 @@
         return angular.element(kid).hasClass('paper-button');
       });
       var forms = {
-        'signin': angular.element('<div class="main"><div class="card card-form"><h3>Signin</h3></div></div>'),
-        'join': angular.element('<div class="main"><div class="card card-form"><h3>Join</h3></div></div>')
+        'signin': angular.element('<div class="main"><div class="card card-form"><input maxrows="1"name="signin" paper-input class="paper-input"><label for="signin">email</label></div></div>'),
+        'join': angular.element('<div class="main"><div class="card card-form"><input paper-input class="paper-input"></div></div>')
       }
       var form;
       var createNewTimeline = function() {
@@ -307,13 +307,14 @@
           form.css('display', 'none');
 
           nvmdButton = compile(nvmdButton)(scope);
+          form = compile(form)(scope);
 
           element.find('section').append(nvmdButton);
           element.append(form);
           // this will trigger a reveal
           scope.reveal.color = color;
 
-          grow.to(element, 0.8, { 'height': '600px', ease: Strong.easeInOut })
+          grow.to(element, 0.8, { 'height': '600px', ease: Expo.easeInOut })
           .to(buttons, 0.5, { opacity: '0' }, 0)
           .call(function() {
             if (grow.reversed()) {
@@ -341,6 +342,12 @@
       }, true);
     };
   }])
+  .directive('paperInput', function() {
+    function paperInputLinkFn(scope, element, attr) {
+
+    }
+    return paperInputLinkFn;
+  })
   .classy.controller({
     name: 'HomeController',
 
