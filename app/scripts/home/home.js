@@ -280,7 +280,7 @@
       var forms = {
         'signin': angular.element('<div class="main"><div class="card card-form"><paper-input></paper-input></div></div>'),
         'join': angular.element('<div class="main"><div class="card card-form"><input paper-input class="paper-input"></div></div>')
-      }
+      };
       var form;
       var createNewTimeline = function() {
         return new TimelineMax({
@@ -290,7 +290,7 @@
             grow = createNewTimeline();
           }
         });
-      }
+      };
       var grow = createNewTimeline();
 
       scope.$watch('grow', function(newVal, oldVal) {
@@ -370,8 +370,7 @@
       this.$.grow = { message: 'no'};
     },
 
-    nevermind: function() {
-      console.log('called')
+    nevermind: function(){
       this.$.grow.message = 'reset';
     }
   });
