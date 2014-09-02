@@ -45,7 +45,6 @@
 
     function rippleLinkFn(scope, element, attr, ctrl) {
       var color = colorHash[attr.ripple] || 'lightgray';
-      var nowColor = element.css('background-color');
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
 
@@ -210,7 +209,7 @@
           body.classList.remove('open');
           appbarElement.removeClass('open');
           navdrawerContainer.removeClass('open');
-          navdrawerContainer.toggleClass('primary');
+          // navdrawerContainer.toggleClass('primary');
 
         }, 150);
       }
@@ -222,7 +221,7 @@
 
           navdrawerContainer.toggleClass('open');
           navdrawerContainer.toggleClass('shadow-2-right');
-          navdrawerContainer.toggleClass('primary');
+          // navdrawerContainer.toggleClass('primary');
           navdrawerContainer.addClass('opened');
         }, 200);
       }
@@ -278,14 +277,16 @@
       var buttons = _.filter(kids, function(kid) {
         return angular.element(kid).hasClass('paper-button');
       });
-
+      var forms = {
+        'signin': angular.element('<div class="main"><div class="card card-form"><h3>Signin</h3></div></div>'),
+        'join': angular.element('<div class="main"><div class="card card-form"><h3>Join</h3></div></div>')
+      }
+      var form;
       var createNewTimeline = function() {
         return new TimelineMax({
           onReverseComplete: function() {
             nvmdButton.remove();
-            _.forEach(buttons, function(button) {
-              angular.element(button).css('display', 'block');
-            });
+            form.remove();
             grow = createNewTimeline();
           }
         });
@@ -299,30 +300,43 @@
         if (newVal.message === 'go') {
           // make sure the color is always different
           var color = colors[scope.reveal.color];
+          form = forms[scope.grow.form];
           nvmdButton.css('opacity', '0');
           nvmdButton.css('display', 'none');
+          form.css('opacity', '0');
+          form.css('display', 'none');
 
           nvmdButton = compile(nvmdButton)(scope);
 
           element.find('section').append(nvmdButton);
+          element.append(form);
           // this will trigger a reveal
           scope.reveal.color = color;
 
-          grow.to(element, 1, { 'height': '600px', ease: Sine.easeOut })
-            .to(buttons, 1, { opacity: '0' }, 0)
-            .call(function() {
+          grow.to(element, 0.8, { 'height': '600px', ease: Strong.easeInOut })
+          .to(buttons, 0.5, { opacity: '0' }, 0)
+          .call(function() {
+            if (grow.reversed()) {
               _.forEach(buttons, function(button) {
-                angular.element(button).css('display', 'none');
+                angular.element(button).css('display', 'block');
               });
-              nvmdButton.css('display', 'block');
-            })
-            .to(nvmdButton, 1, { opacity: '1' }, 1);
+              nvmdButton.css('display', 'none');
+              form.css('display', 'none');
+              return;
+            }
+            _.forEach(buttons, function(button) {
+              angular.element(button).css('display', 'none');
+            });
+            nvmdButton.css('display', 'block');
+            form.css('display', 'block');
+
+          })
+          .to([form,nvmdButton], 0.5, { opacity: '1' }, 1);
         }
 
         if (newVal.message === 'reset') {
-
-          // TweenMax.to(element, 1, { height: '138px', ease: Sine.easeIn });
-          grow.reverse();
+          grow.timeScale(2)
+          .reverse();
         }
       }, true);
     };
