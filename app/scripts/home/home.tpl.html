@@ -1,11 +1,14 @@
 <div drawer>
-  <header class="app-bar promote-layer primary"  reveal duration="1" blend="true">
+  <header class="app-bar promote-layer primary"  grow reveal duration="1">
     <div class="app-bar-container">
       <button class="menu" ripple="white"><img src="images/hamburger.svg" alt="Menu"></button>
       <h1 class="logo"><strong>Dev</strong>keep</h1>
       <section class="app-bar-actions">
-        <div paper-button class="paper-button raised canvas" ripple="accent">sign in</div>
-        <div paper-button class="paper-button raised canvas" ripple="accent">join</div>
+
+        <div ng-click="grow.message = 'go';grow.form = 'signin'" paper-button class="paper-button raised canvas" ripple="accent">sign in</div>
+
+        <div ng-click="grow.message = 'go'; grow.form = 'join'" paper-button class="paper-button raised canvas" ripple="accent">join</div>
+
       </section>
     </div>
   </header>
