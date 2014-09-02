@@ -278,7 +278,7 @@
         return angular.element(kid).hasClass('paper-button');
       });
       var forms = {
-        'signin': angular.element('<div class="main"><div class="card card-form"><input maxrows="1"name="signin" paper-input class="paper-input"><label for="signin">email</label></div></div>'),
+        'signin': angular.element('<div class="main"><div class="card card-form"><paper-input></paper-input></div></div>'),
         'join': angular.element('<div class="main"><div class="card card-form"><input paper-input class="paper-input"></div></div>')
       }
       var form;
@@ -346,7 +346,18 @@
     function paperInputLinkFn(scope, element, attr) {
 
     }
-    return paperInputLinkFn;
+    return {
+      restrict: 'EA',
+      template:
+        '<div class="group">'+
+        '<input type="text">'+
+        '<span class="highlight"></span>'+
+        '<span class="bar"></span>'+
+        '<label>{{ grow.form }}</label>'+
+        '</div>',
+      replace: true,
+      link: paperInputLinkFn
+    };
   })
   .classy.controller({
     name: 'HomeController',
