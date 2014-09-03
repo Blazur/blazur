@@ -4,7 +4,7 @@ var express   = require('express');
 var passport  = require('passport');
 
 require('./config/db');
-require('./config/passport')(passport);
+passport = require('./config/passport')(passport);
 
 var app = express();
 

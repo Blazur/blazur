@@ -6,16 +6,16 @@
     'primary': '#3f51b5',
     'primaryDark': '#1a237e',
     'primaryLight': '#7986cb',
-    'accent': '#ff4081',
+    'accent': '#00e5ff',
     'white': 'white',
-    'accentLight': '#ff4081'
+    'accentLight': '#18ffff'
   };
 
   var borderHash = {
     'accent': 'white',
-    'primary': '#ff4081',
+    'primary': 'accent',
     'accentDark': 'white',
-    'accentLight': '#ff4081'
+    'accentLight': 'primaryDark'
   };
 
   var configBlock = ['$stateProvider', function(State) {
@@ -187,7 +187,7 @@
         })
         .to(touch, rippleDuration, { opacity: '0', onComplete:function(){touch.remove();} }, 0);
 
-        angular.element(document.body).find('nav').css('border-top', '2px solid ' + borderHash[newVal.color]);
+        angular.element(document.body).find('nav').css('border-top', '2px solid ' + colorHash[borderHash[newVal.color]]);
         child = element.children()[0];
         TweenMax.fromTo([element, child], rippleDuration, { backgroundColor: oldColor }, { backgroundColor: color + '!important' }, 1);
       }, true);
@@ -288,7 +288,7 @@
 
 
     return function(scope, element, attr) {
-      var nvmdButton = angular.element('<div ng-click="nevermind()" paper-button class="paper-button raised canvas" ripple="accent">back</div>');
+      var nvmdButton = angular.element('<div ng-click="nevermind()" paper-button class="paper-button raised" ripple="accent">back</div>');
       var kids = element.find('div');
       var buttons = _.filter(kids, function(kid) {
         return angular.element(kid).hasClass('paper-button');
@@ -362,14 +362,14 @@
       }, true);
     };
   }])
-  .directive('paperInput', ['$templateCache', function(tCache) {
+  .directive('paperInput', ['$templateCache', '$compile', function(tCache, compile) {
     function paperInputLinkFn(scope, element, attr) {
       scope.type = attr.type;
-      scope.$watchCollection('attrs', function(newVal, oldVal) {
-        if (oldVal && newVal && angular.equals(newVal, oldVal)) {
-          // angular.extend(scope, oldVal);
-        }
-      });
+      // scope.$watchCollection('attrs', function(newVal, oldVal) {
+      //   if (oldVal && newVal && angular.equals(newVal, oldVal)) {
+
+      //   }
+      // });
     }
     return {
       restrict: 'EA',
