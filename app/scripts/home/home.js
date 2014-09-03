@@ -1,5 +1,7 @@
 (function() {
   'use strict';
+  // we need this for our themeing so we dont have to pass hex colors in our html
+  // used in the directives reveal, ripple etc
   var colorHash = {
     'primary': '#3f51b5',
     'primaryDark': '#1a237e',
@@ -34,31 +36,28 @@
   ])
   .config(configBlock)
   .directive('ripple', function() {
-    var colorHash = {
-      'primary': '#3f51b5',
-      'primaryDark': '#1a237e',
-      'primaryLight': '#7986cb',
-      'accent': '#ff4081',
-      'white': 'white',
-      'accentDark': '#ff4081'
-    };
-
     function rippleLinkFn(scope, element, attr, ctrl) {
       var color = colorHash[attr.ripple] || 'lightgray';
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
-
+      // check here to see if the app is in mobile
+      // if so, don't ripple
       if (tagName === 'HEADER') {
         var button = element.find('button');
 
-        if (button[0].offsetParent) {
+        if (button.hasClass('menu') && button[0].offsetParent) {
           element.removeAttr('ripple');
           return;
         }
       }
 
-      element.on('mousedown', function(e) {
+      var onMouseDown = function(e) {
         var touch  = angular.element('<div></div>');
+        // the controller is optianlly passed in,
+        // if we have it, get the c coordinated
+        // used when someone clicks a nav link
+        // then a ripple is sent through header
+        // get the x coordinate for nice origin animation
         if (ctrl) {
           ctrl.coords.x = e.pageX;
         }
@@ -66,6 +65,10 @@
         var size = element[0].clientWidth * 1.9;
         var complete = false;
 
+        // register mouseup on document and not element
+        // so if a user holds down the mouse on a ripple element
+        // then drags the mouse away while still holding
+        // the ripple will still vanish
         angular.element(document)
         .on('mouseup', function() {
           var a = {
@@ -99,7 +102,7 @@
           'width': '0',
           'height': '0',
           'background': color,
-          'opacity': '0.5'
+          'opacity': '0.2'
         });
 
         element.append(touch);
@@ -114,9 +117,9 @@
             // touch.remove();
           }
         });
+      };
 
-
-      });
+      element.on('mousedown', onMouseDown);
     }
 
     return {
@@ -248,8 +251,15 @@
       link: drawerLinkFn
     };
   }])
-  .directive('paperButton', ['$timeout', function(timeout) {
-    function paperButtonLinkFn(scope, element) {
+  .directive('paperButton', ['$timeout', '$compile', function(timeout, compile) {
+    function paperButtonLinkFn(scope, element, attr) {
+      var hasRipple = attr.ripple;
+
+      attr.$observe('disabled', function() {
+        if (!attr.disabled && !hasRipple) {
+          attr.$set('ripple', 'accent');
+        }
+      });
       element.on('click', function() {
         element.addClass('active');
         timeout(function() {
@@ -261,13 +271,19 @@
       });
     }
 
-    return paperButtonLinkFn;
+    return {
+      template: '<div class="paper-button" ng-transclude></div>',
+      transclude: true,
+      restrict: 'EA',
+      link: paperButtonLinkFn,
+      replace: true
+    };
   }])
-  .directive('grow', ['$compile', function(compile) {
+  .directive('grow', ['$compile', '$templateCache',function(compile, tCache) {
     var colors = {
-      'accent': 'primary',
-      'primary': 'primaryDark',
-      'primaryDark': 'accent'
+      'accent': 'primaryDark',
+      'primary': 'accent',
+      'primaryDark': 'primary'
     };
 
 
@@ -278,7 +294,7 @@
         return angular.element(kid).hasClass('paper-button');
       });
       var forms = {
-        'signin': angular.element('<div class="main"><div class="card card-form"><paper-input></paper-input></div></div>'),
+        'signin': angular.element('<signin-form></signin-form>'),
         'join': angular.element('<div class="main"><div class="card card-form"><input paper-input class="paper-input"></div></div>')
       };
       var form;
@@ -287,6 +303,10 @@
           onReverseComplete: function() {
             nvmdButton.remove();
             form.remove();
+            forms = {
+              'signin': angular.element('<signin-form></signin-form>'),
+              'join': angular.element('<div class="main"><div class="card card-form"><input paper-input class="paper-input"></div></div>')
+            };
             grow = createNewTimeline();
           }
         });
@@ -342,23 +362,46 @@
       }, true);
     };
   }])
-  .directive('paperInput', function() {
+  .directive('paperInput', ['$templateCache', function(tCache) {
     function paperInputLinkFn(scope, element, attr) {
+      scope.type = attr.type;
+      scope.$watchCollection('attrs', function(newVal, oldVal) {
+        if (oldVal && newVal && angular.equals(newVal, oldVal)) {
+          // angular.extend(scope, oldVal);
+        }
+      });
+    }
+    return {
+      restrict: 'EA',
+      template: tCache.get('paperInput.html'),
+      replace: true,
+      scope: {
+        value: '=',
+        attrs: '='
+      },
+      transclude: true,
+      link: paperInputLinkFn
+    };
+  }])
+  .directive('signinForm', ['$templateCache', 'UserFactory', function(tCache, User) {
+    function signinFormLinkFn(scope, element, attr) {
+      scope.form = {
+        emailAttrs: {
+          'ng-maxlength': '12',
+          'ng-minlength': '5',
+          'required': 'true'
+        }
+      };
 
     }
     return {
       restrict: 'EA',
-      template:
-        '<div class="group">'+
-        '<input type="text">'+
-        '<span class="highlight"></span>'+
-        '<span class="bar"></span>'+
-        '<label>{{ grow.form }}</label>'+
-        '</div>',
+      template: tCache.get('signinForm.html'),
       replace: true,
-      link: paperInputLinkFn
+      scope: {},
+      link: signinFormLinkFn
     };
-  })
+  }])
   .classy.controller({
     name: 'HomeController',
 
@@ -372,6 +415,7 @@
 
     nevermind: function(){
       this.$.grow.message = 'reset';
+      this.$.reveal.color = 'primary';
     }
   });
 }());

@@ -11,7 +11,7 @@ div.paper-button
   height 32px
   line-height 32px
   border-radius 2px
-  font-size 1.2em
+  font-size 0.9em
   background-color canvas
   color #646464
   text-transform uppercase
@@ -32,6 +32,14 @@ div.paper-button
   &:active
     shadow(3)
     transition-delay 0s
+  &[disabled]
+    background-color #eaeaea !important
+    color #a8a8a8 !important
+    cursor auto
+    opacity 0.7
+    box-shadow none
+
+
 
 
 

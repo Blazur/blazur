@@ -50,6 +50,29 @@
     <script src="scripts/user/userServices.js"></script>
     <!-- endbuild -->
 
+    <script type="text/ng-template" id="paperInput.html">
+      <div class="group">
+        <input type="{{ type }}" ng-maxlength="{{ attrs['ng-maxlength'] }}" required ng-model="value">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label ng-transclude></label>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="signinForm.html">
+      <div class="main">
+        <form name="signinForm" novalidate>
+          <div class="card card-form">
+            <paper-input type="email" attrs="form.emailAttrs" value="form.email">email</paper-input>
+            <paper-input required="true" type="password" value="form.password">password</paper-input>
+            <paper-button type="submit" ng-disabled="signinForm.$invalid" class="canvas raised">
+              signin
+            </paper-button>
+          </div>
+        </form>
+      </div>
+    </script>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

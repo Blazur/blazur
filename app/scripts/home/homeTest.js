@@ -69,9 +69,9 @@ describe('app.home module', function() {
         expect(currentState.templateUrl).to.be('scripts/home/faq/faq.tpl.html');
       });
 
-      it('should change header color to be "primary dark"', function() {
+      it('should change header color to be "primary"', function() {
         var $scope = getScope('FaqController');
-        expect($scope.reveal.color).to.be('primaryDark');
+        expect($scope.reveal.color).to.be('primary');
       });
 
     });
@@ -90,9 +90,9 @@ describe('app.home module', function() {
         expect(currentState.templateUrl).to.be('scripts/home/how/how.tpl.html');
       });
 
-      it('should change header color to be "accent"', function() {
+      it('should change header color to be "primary"', function() {
         var $scope = getScope('HowController');
-        expect($scope.reveal.color).to.be('accent');
+        expect($scope.reveal.color).to.be('primary');
       });
     });
   })

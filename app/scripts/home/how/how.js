@@ -23,7 +23,7 @@
     inject: ['$scope'],
 
     init: function() {
-      this.$.reveal.color = 'accent';
+      this.$.reveal.color = 'primary';
     }
   });
 }());
