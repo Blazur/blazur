@@ -49,6 +49,7 @@ UserSchema.statics.findOneOrCreateOne = function(query, maybe) {
       future.resolve(user);
     });
   });
+  return future.promise;
 };
 
 module.exports = mongoose.model('User', UserSchema);

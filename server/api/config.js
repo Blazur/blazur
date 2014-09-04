@@ -11,7 +11,8 @@ module.exports = function(app, express, passport) {
 
   app.set('port', config.port);
   app.use(morgan('dev'));
-  app.use(bdParser.json({ extended: true }));
+  app.use(bdParser.json());
+  app.use(bdParser.urlencoded({ extended: true }));
   app.use(compress());
   app.use(passport.initialize());
   app.use(express.static(__dirname + '/../../bower_components'));
