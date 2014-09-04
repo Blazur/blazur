@@ -11,6 +11,11 @@
       },
       isSignedIn: function() {
         return !!win.localStorage.getItem('bz');
+      },
+
+      signinOauth: function(provider) {
+        var windowParams = 'location=0,status0,modal=yes,alwaysRaised=yes,width=800,height=600';
+        win.open('http://localhost:3000/api/v1/user/oauth/' + provider, '_blank', windowParams);
       }
     };
 

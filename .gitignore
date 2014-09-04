@@ -5,3 +5,4 @@ bower_components/
 .tmp/
 coverage/
 .sass-cache/
+server/config/_local.env.js

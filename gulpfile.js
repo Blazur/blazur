@@ -27,6 +27,8 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
+var variables = require('./server/config/_local.env');
+var _ = require('lodash');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -50,6 +52,9 @@ gulp.task('test', $.shell.task([
 
 gulp.task('api', function() {
   process.env.NODE_ENV = 'development';
+  _.forEach(variables, function(val, variable) {
+    process.env[variable] = val;
+  })
   $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 

@@ -65,9 +65,10 @@
           <div class="card card-form">
             <paper-input type="email" attrs="form.emailAttrs" value="form.email">email</paper-input>
             <paper-input required="true" type="password" value="form.password">password</paper-input>
-            <a href="/api/v1/user/oauth/github"><paper-button type="submit" ng-disabled="signinForm.$invalid" class="canvas raised">
+            <paper-button type="submit" ng-disabled="signinForm.$invalid" class="canvas raised"
+              ng-click="oauth('github')">
               signin
-            </paper-button></a>
+            </paper-button>
           </div>
         </form>
       </div>
