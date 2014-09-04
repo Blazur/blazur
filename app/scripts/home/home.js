@@ -323,11 +323,26 @@
           form = forms[scope.grow.form];
           nvmdButton.css('opacity', '0');
           nvmdButton.css('display', 'none');
-          form.css('opacity', '0');
-          form.css('display', 'none');
 
           nvmdButton = compile(nvmdButton)(scope);
           form = compile(form)(scope);
+          form.css('opacity', '0');
+          form.css('display', 'none');
+          var card;
+          var inputs = _.map(form.find('div'), function(div) {
+            var element;
+            if (angular.element(div).hasClass('card')) {
+              card = angular.element(div);
+            } else {
+              element = angular.element(div);
+              element.css('opacity', '0');
+              return element;
+            }
+          });
+
+          card.css('width', '10px');
+          card.css('height', '10px');
+          card.css('borderRadius', '40px');
 
           element.find('section').append(nvmdButton);
           element.append(form);
@@ -352,7 +367,10 @@
             form.css('display', 'block');
 
           })
-          .to([form,nvmdButton], 0.5, { opacity: '1' }, 1);
+          .to(nvmdButton, 0.5, { opacity: '1' }, 1)
+          .to(form, 0.5, { opacity: '1' }, 1)
+          .to(card, 0.5, { width: '500px', height: '400px', borderRadius: '3px' }, 1)
+          .to(inputs, 1.2, { opacity: '1' }, 1);
         }
 
         if (newVal.message === 'reset') {
