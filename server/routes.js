@@ -7,9 +7,11 @@ exports = module.exports = function(app) {
   app.use('/api/users', require('./api/user'));
   app.use('/auth', require('./auth'));
 
-  app.route('/:url(api|auth|fonts|images|scripts|styles|bower_components|)/*');
+  app.route('/*(api|auth|fonts|images|scripts|styles|bower_components|)/*')
+    .get(errors[404]);
   app.route('/*')
     .get(function(req, res) {
-      res.sendfile(app.get('appPath') + '/index.html');
+      console.log('____hrer___')
+      res.sendFile(app.get('appPath') + '/index.html');
     });
 };

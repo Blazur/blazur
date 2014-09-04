@@ -55,12 +55,12 @@ gulp.task('api', function() {
   _.forEach(variables, function(val, variable) {
     process.env[variable] = val;
   })
-  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+  $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 
 gulp.task('api:prod', function() {
   process.env.NODE_ENV = 'production';
-  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+  $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 // Lint JavaScript
 gulp.task('jshint', function () {

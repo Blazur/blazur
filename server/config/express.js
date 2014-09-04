@@ -20,7 +20,9 @@ var express      = require('express'),
 exports = module.exports = function(app) {
   var env = app.get('env');
 
+  console.log('config');
   app.set('views', config.root + '/server/views');
+  app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
   app.use(compression());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,19 +30,22 @@ exports = module.exports = function(app) {
   app.use(mOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+  app.use(express.static(path.join(config.root, 'bower_components')));
 
   if ('production' === env) {
+    console.log('pro')
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'dist')));
     app.set('appPath', config.root + '/dist');
     app.use(morgan('dev'));
   }
 
-  if ('devlopment' === env || 'test' === env) {
+  if ('development' === env || 'test' === env) {
+    console.log('dev')
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
-    app.set('appPath', 'app');
+    app.set('appPath', config.root + '/app');
     app.use(morgan('dev'));
-    app.use(errorhandler());
+    app.use(errorHandler());
   }
 };

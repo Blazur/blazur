@@ -16,6 +16,9 @@ var UserSchema = new mongoose.Schema({
     github: {
       id: String,
       token: String
+    },
+    local: {
+      password: String
     }
   }
 });

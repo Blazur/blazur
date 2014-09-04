@@ -2,9 +2,10 @@
 
 var expressJwt    = require('express-jwt'),
     compose       = require('composable-middleware'),
-    User          = require('../api/user/userModel'),
-    config        = require('../config/config'),
+    User          = require('../api/user/user.model'),
+    config        = require('../config/environment'),
     _             = require('lodash'),
+    jwt           = require('jsonwebtoken'),
     validateJwt   = expressJwt({ secret: config.secrets.jwt });
 
 /**
@@ -57,9 +58,9 @@ function setTokenCookie(req, res) {
   res.cookie('__devkeep', JSON.stringify(token));
   // this entire flow happens inside a popup window, we must
   // redirect the window to some other html file that calls window.close
-  res.redirect('/closewindow');
+  res.redirect('/auth/closewindow');
 }
 
 exports.isAuthenticated = isAuthenticated;
-export.signToken = signToken;
+exports.signToken = signToken;
 exports.setTokenCookie = setTokenCookie;

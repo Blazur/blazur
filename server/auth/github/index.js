@@ -9,13 +9,13 @@ var router = express.Router();
 router
   // actual route is '/auth/github'
   .get('/', passport.authenticate('github', {
-    failureRedirect: '/closewindow',
+    failureRedirect: '/auth/closewindow',
     session: false
   }))
 
   // actual route is '/auth/github/callback'
   .get('/callback', passport.authenticate('github', {
-    failureRedirect: '/closewindow',
+    failureRedirect: '/auth/closewindow',
     session: false
   }), auth.setTokenCookie);
 
