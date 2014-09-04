@@ -393,6 +393,11 @@
         }
       };
 
+      scope.oauth = function(provider) {
+        console.log(provider);
+        User.signinOauth(provider);
+      };
+
     }
     return {
       restrict: 'EA',

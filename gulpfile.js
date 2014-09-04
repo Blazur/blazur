@@ -27,6 +27,7 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
+var _ = require('lodash');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -50,12 +51,17 @@ gulp.task('test', $.shell.task([
 
 gulp.task('api', function() {
   process.env.NODE_ENV = 'development';
-  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+  var variables = require('./server/config/_local.env');
+
+  _.forEach(variables, function(val, variable) {
+    process.env[variable] = val;
+  })
+  $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 
 gulp.task('api:prod', function() {
   process.env.NODE_ENV = 'production';
-  $.nodemon({ script: 'server.js' , ext: 'js', ignore: ['.tpm/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
+  $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 // Lint JavaScript
 gulp.task('jshint', function () {
