@@ -47,7 +47,7 @@
   "scripts": {
     "test": "gulp travis",
     "postinstall": "bower install",
-    "start": "node server.js"
+    "start": "node server/app.js"
   },
   "dependencies": {
     "body-parser": "^1.6.7",
