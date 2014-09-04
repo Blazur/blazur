@@ -49,6 +49,10 @@ gulp.task('test', $.shell.task([
     'karma start karma.conf.js'
 ]));
 
+gulp.task('deploy', $.shell.task([
+  'git push blazur master'
+]));
+
 gulp.task('api', function() {
   process.env.NODE_ENV = 'development';
   var variables = require('./server/config/_local.env');
