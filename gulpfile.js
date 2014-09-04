@@ -27,7 +27,6 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
-var variables = require('./server/config/_local.env');
 var _ = require('lodash');
 
 var AUTOPREFIXER_BROWSERS = [
@@ -52,6 +51,8 @@ gulp.task('test', $.shell.task([
 
 gulp.task('api', function() {
   process.env.NODE_ENV = 'development';
+  var variables = require('./server/config/_local.env');
+
   _.forEach(variables, function(val, variable) {
     process.env[variable] = val;
   })
