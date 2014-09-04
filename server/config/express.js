@@ -34,7 +34,7 @@ exports = module.exports = function(app) {
 
   if ('production' === env) {
     console.log('pro')
-    app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
+    app.use(favicon(path.join(config.root, 'dist', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'dist')));
     app.set('appPath', config.root + '/dist');
     app.use(morgan('dev'));
