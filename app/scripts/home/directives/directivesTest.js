@@ -9,7 +9,6 @@ describe('app.home.directives', function() {
     beforeEach(module('app.home.directives.ripple'));
 
     beforeEach(inject(function($injector, $timeout) {
-      console.log($timeout);
       $timeout = $timeout;
       $compile = $injector.get('$compile');
       $scope = $injector.get('$rootScope').$new();
@@ -22,13 +21,10 @@ describe('app.home.directives', function() {
       expect(element.isolateScope()).to.be(undefined);
     });
 
-    it('should add and remove ripple', function(done) {
+    it('should add and remove ripple', function() {
       expect(element.children().length).to.be(0);
       trigger(element, 'mousedown');
       expect(element.children().length).to.be(1);
-
-      trigger(angular.element(document), 'mouseup');
-
     });
   })
 });

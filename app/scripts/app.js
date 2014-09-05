@@ -19,7 +19,8 @@
     'ngFx',
     'ui.router',
     'app.home',
-    'app.user'
+    'app.user',
+    'app.profile'
   ])
   .config(configBlock)
   .run(runBlock)
