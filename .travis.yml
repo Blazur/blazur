@@ -17,4 +17,4 @@ deploy:
     secure: RSNkYr77BI/Siq/r2rWnQdcbIMVEQ/HmXT2M2GUWDJqMAO7TMxsnU5M2R6+7ZiOCE0LzdTF5+atnRgWkkGxUnLO4VP9bbcmGcS5yHyk/LvPPO5l3fmS+7Gd8IooyCBslhNIBGkw61c9MhnThMfrCVrnvNFE8dTKjIEm0Zw4xOJI=
   app: warm-lake-9782
   on:
-    repo: blazur/blazur
+    repo: Blazur/blazur
