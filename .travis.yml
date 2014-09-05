@@ -1,13 +1,20 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 env:
   global:
-    - NODE_ENV=test
+  - NODE_ENV=test
 before_install:
-  - npm install -g karma-cli
-  - npm install -g mocha
-  - npm install -g gulp
-  - npm install -g bower
+- npm install -g karma-cli
+- npm install -g mocha
+- npm install -g gulp
+- npm install -g bower
 before_script:
-  - bower install
+- bower install
+deploy:
+  provider: heroku
+  api_key:
+    secure: RSNkYr77BI/Siq/r2rWnQdcbIMVEQ/HmXT2M2GUWDJqMAO7TMxsnU5M2R6+7ZiOCE0LzdTF5+atnRgWkkGxUnLO4VP9bbcmGcS5yHyk/LvPPO5l3fmS+7Gd8IooyCBslhNIBGkw61c9MhnThMfrCVrnvNFE8dTKjIEm0Zw4xOJI=
+  app: warm-lake-9782
+  on:
+    repo: Hendrixer/blazur
