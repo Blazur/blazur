@@ -14,13 +14,12 @@ var express      = require('express'),
     errorHandler = require('errorhandler'),
     path         = require('path'),
     config       = require('./environment'),
-    passport     = require('passport'),
-    mongoose     = require('mongoose');
+    passport     = require('passport');
+    // mongoose     = require('mongoose');
 
 exports = module.exports = function(app) {
   var env = app.get('env');
 
-  console.log('config');
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
@@ -33,7 +32,6 @@ exports = module.exports = function(app) {
   app.use(express.static(path.join(config.root, 'bower_components')));
 
   if ('production' === env) {
-    console.log('pro')
     app.use(favicon(path.join(config.root, 'dist', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'dist')));
     app.set('appPath', config.root + '/dist');
@@ -41,7 +39,6 @@ exports = module.exports = function(app) {
   }
 
   if ('development' === env || 'test' === env) {
-    console.log('dev')
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
     app.set('appPath', config.root + '/app');

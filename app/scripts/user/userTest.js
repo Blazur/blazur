@@ -25,17 +25,17 @@ describe('app.user module', function() {
 
     it('should let users signout and rediect to home', function() {
       expect(User.signout).to.be.a('function');
-      $window.localStorage.setItem('bz','1234');
+      $window.localStorage.setItem('__devkeep','1234');
 
       User.signout();
       $rootScope.$digest();
-      expect($window.localStorage.getItem('bz')).to.not.be.ok();
+      expect($window.localStorage.getItem('__devkeep')).to.not.be.ok();
       expect($state.current.name).to.be('app.home.landing');
     });
 
     it('should know when a user is signed in', function() {
       expect(User.isSignedIn).to.be.a('function');
-      $window.localStorage.setItem('bz', '1234');
+      $window.localStorage.setItem('__devkeep', '1234');
 
       expect(User.isSignedIn()).to.be(true);
 

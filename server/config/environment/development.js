@@ -6,7 +6,7 @@
 exports = module.exports = {
   // Mongo DB conecction stuff
   mongo: {
-    uri: 'mongodb://localhost/devkeep',
-    seedDB: true
-  }
-}
+    uri: 'mongodb://localhost/devkeep'
+  },
+  seedDB: true
+};

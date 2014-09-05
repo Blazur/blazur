@@ -10,14 +10,14 @@ User.find({}).remove(function() {
         id: 'efhkshfiwhf',
         token: 'sfosuowsfh hwowojwjfpu83289h'
       }
-    }
+    },
     email: 'test@test.com'
   }, {
     providers: {
       local: {
         password: 'test'
       }
-    }
+    },
     email: 'admin@admin.com',
   }, function() {
       console.log('finished populating users');
