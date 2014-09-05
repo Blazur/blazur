@@ -42,11 +42,16 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 gulp.task('travis', $.shell.task([
-  'karma start karma.conf.js --single-run --browsers PhantomJS'
+  'karma start karma.conf.js --single-run --browsers PhantomJS',
+  'mocha sever/**/*.spec.js'
 ]));
 
-gulp.task('test', $.shell.task([
+gulp.task('karma', $.shell.task([
     'karma start karma.conf.js'
+]));
+
+gulp.task('mocha', $.shell.task([
+  'mocha sever/**/*.spec.js'
 ]));
 
 gulp.task('deploy', $.shell.task([
