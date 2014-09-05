@@ -12,8 +12,8 @@
 
     return function(scope, element, attr) {
       // create the back button
-      var nvmdButton = angular.element('<div ng-click="nevermind()" paper-button class="paper-button raised" ripple="accent">back</div>');
-      var kids = element.find('div');
+      var nvmdButton = angular.element('<paper-button ng-click="nevermind()" class="paper-button raised" ripple="accent" text="back"></paper-button>');
+      var kids = element.find('button');
       var buttons = _.filter(kids, function(kid) {
         return angular.element(kid).hasClass('paper-button');
       });
@@ -25,9 +25,7 @@
 
       // our animation timeline. We have to reset it and create
       // a new one everytime. Cleans up all uneeded elemens on page
-      // we have to redefine forms again because <signin-form/> usues
-      // transclusion and we'll get an orphan error becuase it was already
-      // compiled
+      // make pristine forms
       var createNewTimeline = function() {
         return new TimelineMax({
           onReverseComplete: function() {
@@ -58,6 +56,7 @@
           // compile and set the initial css for elements
           nvmdButton = compile(nvmdButton)(scope);
           form = compile(form)(scope);
+          console.log(form);
 
           /**
            * @card:
@@ -76,6 +75,10 @@
               return element;
             }
           });
+          var siginButton = form.find('button');
+          siginButton.css('opacity', '0');
+
+          inputs.push(siginButton);
 
           // set the initial widths and heights to be small to animate bigger
           card.css('width', '10px');

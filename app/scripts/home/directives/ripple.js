@@ -16,10 +16,9 @@
       var rippleDuration = attr.duration || 0.5;
       var tagName = element[0].tagName;
       // check here to see if the app is in mobile
+      var button = element.find('button');
       // if so, don't ripple
       if (tagName === 'HEADER') {
-        var button = element.find('button');
-
         if (button.hasClass('menu') && button[0].offsetParent) {
           element.removeAttr('ripple');
           return;
@@ -89,7 +88,7 @@
           'ease': Expo.easeOut,
           onComplete: function() {
             complete = true;
-            // touch.remove();
+            touch.remove();
           }
         });
       };

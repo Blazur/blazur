@@ -5,9 +5,6 @@ env:
   global:
   - NODE_ENV=test
 before_install:
-- npm install -g karma-cli
-- npm install -g mocha
-- npm install -g gulp
-- npm install -g bower
+  - npm install -g karma-cli mocha gulp bower
 before_script:
 - bower install

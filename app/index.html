@@ -61,23 +61,22 @@
 
     <script type="text/ng-template" id="paperInput.html">
       <div class="group">
-        <input type="{{ type }}" ng-maxlength="{{ attrs['ng-maxlength'] }}" required ng-model="value">
+        <input type="{{ type }}" ng-model="value">
         <span class="highlight"></span>
         <span class="bar"></span>
-        <label ng-transclude></label>
+        <label>{{ label }}</label>
       </div>
     </script>
 
     <script type="text/ng-template" id="signinForm.html">
       <div class="main">
-        <form name="signinForm" novalidate>
+        <form name="signinForm" novalidate ng-submit="oauth('github')">
           <div class="card card-form">
-            <paper-input type="email" attrs="form.emailAttrs" value="form.email">email</paper-input>
-            <paper-input required="true" type="password" value="form.password">password</paper-input>
-            <paper-button type="submit" ng-disabled="signinForm.$invalid" class="canvas raised"
-              ng-click="oauth('github')">
-              signin
-            </paper-button>
+            <paper-input label="email" type="email" attrs="form.emailAttrs" value="form.email" ng-maxlength="15" ng-minlength="4" required>email</paper-input>
+
+            <paper-input label="password" type="password" value="form.password" required ng-maxlength="10" ng-minlength="6">password</paper-input>
+
+            <paper-button type="submit" ng-disabled="signinForm.$invalid" class="" ripple="accent" text="sign in"></paper-button>
           </div>
         </form>
       </div>

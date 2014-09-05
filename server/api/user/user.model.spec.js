@@ -19,7 +19,7 @@ var user = new User({
   email: 'test@test.com'
 });
 
-describe('User', function() {
+describe('User model', function() {
   before(function(done) {
     remove(done);
   });
@@ -33,5 +33,34 @@ describe('User', function() {
       expect(users.length).to.be(0);
       done();
     });
+  });
+
+  it('should fail when saving a duplicate user', function(done) {
+    user.save(function() {
+      new User(user)
+        .save(function(err) {
+          expect(err).to.be.ok();
+          done();
+        });
+    });
+  });
+
+  it('should fail when saving without an email', function(done) {
+    user.email = '';
+    user.save(function(err) {
+      expect(err).to.be.ok();
+      done();
+    });
+  });
+
+  it('should find one or create one', function(done) {
+    user.email = 'test@test.com';
+    User.findOneOrCreateOne({ 'providers.github.id': user.providers.github.id }, user)
+      .then(function(user) {
+        expect(user).to.be.an('object');
+        expect(user.email).to.be('test@test.com');
+        expect(user._id).to.be.ok();
+        done();
+      });
   });
 });

@@ -7,8 +7,7 @@
       scope.form = {
         emailAttrs: {
           'ng-maxlength': '12',
-          'ng-minlength': '5',
-          'required': 'true'
+          'ng-minlength': '5'
         }
       };
 

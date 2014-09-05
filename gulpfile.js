@@ -66,7 +66,10 @@ gulp.task('test:all', ['test', 'all', 'karma', 'mocha'], function() {
 
 gulp.task('mocha', function() {
   return gulp.src('server/**/*.spec.js')
-    .pipe($.mocha());
+    .pipe($.mocha())
+    .on('error', function() {
+      process.exit();
+    });
 });
 
 gulp.task('karma', function(done) {

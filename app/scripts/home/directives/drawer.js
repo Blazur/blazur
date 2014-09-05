@@ -9,7 +9,9 @@
       var navdrawerContainer = angular.element(kids[1]);
       var body = document.body;
       var appbarElement = angular.element(kids[0]);
-      var menuBtn = appbarElement.find('button');
+      var menuBtn = appbarElement.find('button')[0];
+      menuBtn = angular.element(menuBtn);
+
       var main = angular.element(kids[2]);
 
       function closeMenu() {

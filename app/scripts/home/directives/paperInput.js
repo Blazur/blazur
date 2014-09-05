@@ -3,24 +3,37 @@
 
   angular.module('app.home.directives.paperInput', [])
   .directive('paperInput', ['$templateCache', '$compile', function(tCache, compile) {
-    function paperInputLinkFn(scope, element, attr) {
-      scope.type = attr.type;
-      // scope.$watchCollection('attrs', function(newVal, oldVal) {
-      //   if (oldVal && newVal && angular.equals(newVal, oldVal)) {
+    function paperInputLinkFn(scope, element, attrs) {
+      scope.type = attrs.type;
+      scope.label = attrs.label;
 
-      //   }
-      // });
     }
     return {
       restrict: 'EA',
       template: tCache.get('paperInput.html'),
       replace: true,
       scope: {
-        value: '=',
-        attrs: '='
+        value: '='
       },
-      transclude: true,
-      link: paperInputLinkFn
+      compile: function(element, attrs) {
+        var ngValids = {
+          'ngMaxlength': 'ng-maxlength',
+          'ngMinlength': 'ng-minlength',
+          'required': 'required'
+        };
+        var input = element.find('input');
+
+        _.forEach(attrs, function(val, attr) {
+          if (attr in ngValids) {
+            if (ngValids[attr] === 'required') {
+              input.attr('required', 'true');
+            } else {
+              input.attr(ngValids[attr], val || '');
+            }
+          }
+        });
+        return paperInputLinkFn;
+      }
     };
   }]);
 }());
