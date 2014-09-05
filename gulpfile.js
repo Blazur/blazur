@@ -28,6 +28,15 @@ var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
 var _ = require('lodash');
+var karma = require('karma').server;
+var variables;
+
+try {
+  variables = require('./server/config/_local.env');
+} catch(e) {
+  variables = {};
+}
+
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -41,35 +50,67 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-gulp.task('travis', $.shell.task([
-  'karma start karma.conf.js --single-run --browsers PhantomJS',
-  'mocha sever/**/*.spec.js'
-]));
+gulp.task('test:ci', ['test','all','karma:ci', 'mocha'], function() {
+  return gulp.src('')
+    .once('end', function() {
+      process.exit();
+    });
+});
 
-gulp.task('karma', $.shell.task([
-    'karma start karma.conf.js'
-]));
+gulp.task('test:all', ['test', 'all', 'karma', 'mocha'], function() {
+  return gulp.src('')
+    .once('end', function() {
+      process.exit();
+    });
+});
 
-gulp.task('mocha', $.shell.task([
-  'mocha sever/**/*.spec.js'
-]));
+gulp.task('mocha', function() {
+  return gulp.src('server/**/*.spec.js')
+    .pipe($.mocha());
+});
+
+gulp.task('karma', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('karma:ci', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['PhantomJS'],
+    singleRun: true
+  }, done);
+});
+
+gulp.task('prod', function() {
+  process.env.NODE_ENV = 'production';
+});
+
+gulp.task('test', function() {
+  process.env.NODE_ENV = 'test';
+});
+
+gulp.task('dev', function() {
+  process.env.NODE_ENV = 'development';
+});
+
+gulp.task('all', function() {
+   _.forEach(variables, function(val, variable) {
+    process.env[variable] = val;
+  });
+});
 
 gulp.task('deploy', $.shell.task([
   'git push blazur master'
 ]));
 
-gulp.task('api', function() {
-  process.env.NODE_ENV = 'development';
-  var variables = require('./server/config/_local.env');
-
-  _.forEach(variables, function(val, variable) {
-    process.env[variable] = val;
-  })
+gulp.task('api', ['all', 'dev'], function() {
   $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 
-gulp.task('api:prod', function() {
-  process.env.NODE_ENV = 'production';
+gulp.task('api:prod', ['all', 'prod', 'default'], function() {
   $.nodemon({ script: 'server/app.js' , ext: 'js', ignore: ['.tmp/**/*.**', 'app/**/*.**', 'node_modules/**/*.**']});
 });
 // Lint JavaScript
@@ -128,7 +169,7 @@ gulp.task('styles', function () {
     .on('error', console.error.bind(console))
     ))
     .pipe($.if('*.styl', $.stylus()))
-    .pipe($.autoprefixer())
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest('.tmp/styles'))
     .pipe($.if('*.css', $.csso()))
     .pipe(gulp.dest('dist/styles'))
@@ -195,7 +236,7 @@ gulp.task('serve', ['styles', 'api'], function () {
 });
 
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default', 'api:prod'], function () {
+gulp.task('serve:dist', ['api:prod'], function () {
   browserSync({
     notify: true,
     // Run as an https by uncommenting 'https: true'
@@ -204,7 +245,7 @@ gulp.task('serve:dist', ['default', 'api:prod'], function () {
     // https: true,
     // server: {
       // baseDir: 'dist'
-      proxy: 'localhost:4000'
+      proxy: 'localhost:8080'
     // }
 
   });

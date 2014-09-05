@@ -58,8 +58,6 @@
           // compile and set the initial css for elements
           nvmdButton = compile(nvmdButton)(scope);
           form = compile(form)(scope);
-          form.css('opacity', '0');
-          form.css('display', 'none');
 
           /**
            * @card:
@@ -93,7 +91,7 @@
           // color and goes with it
           scope.reveal.color = color;
 
-          grow.to(element, 0.8, { 'height': '600px', ease: Expo.easeInOut })
+          grow.to(element, 0.8, { 'height': '600px', ease: Strong.easeInOut })
           .to(buttons, 0.5, { opacity: '0' }, 0)
           .call(function() {
             if (grow.reversed()) {
@@ -101,24 +99,21 @@
                 angular.element(button).css('display', 'block');
               });
               nvmdButton.css('display', 'none');
-              form.css('display', 'none');
               return;
             }
             _.forEach(buttons, function(button) {
               angular.element(button).css('display', 'none');
             });
             nvmdButton.css('display', 'block');
-            form.css('display', 'block');
-
           })
           .to(nvmdButton, 0.5, { opacity: '1' }, 1)
-          .to(form, 0.5, { opacity: '1' }, 1)
-          .to(card, 0.8, { width: '500px', height: '400px', borderRadius: '3px', ease: Expo.easeInOut}, 1)
-          .to(inputs, 0.8, { opacity: '1' }, 2);
+          .to(card, 0.8, { width: '500px', height: '400px', borderRadius: '3px', ease: Strong.easeInOut }, 0)
+          .to(inputs, 0.3, { opacity: '1' }, 1);
         }
 
         if (newVal.message === 'reset') {
-          grow.timeScale(2)
+          // reverse the animation at 1.5 speed
+          grow.timeScale(1.5)
           .reverse();
         }
       }, true);

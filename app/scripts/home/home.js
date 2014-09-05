@@ -1,23 +1,5 @@
 (function() {
   'use strict';
-  // we need this for our themeing so we dont have to pass hex colors in our html
-  // used in the directives reveal, ripple etc
-  // var colorHash = {
-  //   'primary': '#3f51b5',
-  //   'primaryDark': '#1a237e',
-  //   'primaryLight': '#7986cb',
-  //   'accent': '#00e5ff',
-  //   'white': 'white',
-  //   'accentLight': '#18ffff'
-  // };
-
-  // var borderHash = {
-  //   'accent': 'white',
-  //   'primary': 'accent',
-  //   'accentDark': 'white',
-  //   'accentLight': 'primaryDark'
-  // };
-
   var configBlock = ['$stateProvider', function(State) {
     State
       .state('app.home', {
