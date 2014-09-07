@@ -50,26 +50,25 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-gulp.task('test:ci', ['test','all','karma:ci', 'mocha'], function() {
-  return gulp.src('')
-    .once('end', function() {
-      process.exit();
-    });
+gulp.task('test:ci', ['test', 'all'], function() {
+  $.run('karma start karma.conf.js --browsers PhantomJS').exec()
+    .pipe($.run('mocha server/**/*.spec.js'));
 });
 
-gulp.task('test:all', ['test', 'all', 'karma', 'mocha'], function() {
-  return gulp.src('')
-    .once('end', function() {
-      process.exit();
-    });
+// gulp.task('test:ci', ['test','all','karma:ci', 'mocha'], function() {
+//   return gulp.src('')
+//     .once('end', function() {
+//       process.exit();
+//     });
+// });
+
+gulp.task('test:all', ['test', 'all'], function() {
+  $.run('karma start karma.conf.js').exec()
+    .pipe($.run('mocha server/**/*.spec.js'));
 });
 
-gulp.task('mocha', function() {
-  return gulp.src('server/**/*.spec.js')
-    .pipe($.mocha())
-    .on('error', function() {
-      process.exit();
-    });
+gulp.task('mocha', ['test', 'all'], function() {
+  $.run('mocha server/**/*.spec.js').exec();
 });
 
 gulp.task('karma', function(done) {
@@ -79,13 +78,13 @@ gulp.task('karma', function(done) {
   }, done);
 });
 
-gulp.task('karma:ci', function(done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    browsers: ['PhantomJS'],
-    singleRun: true
-  }, done);
-});
+// gulp.task('karma:ci', function(done) {
+//   karma.start({
+//     configFile: __dirname + '/karma.conf.js',
+//     browsers: ['PhantomJS'],
+//     singleRun: true
+//   }, done);
+// });
 
 gulp.task('prod', function() {
   process.env.NODE_ENV = 'production';

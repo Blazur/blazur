@@ -3,8 +3,8 @@
   var configBlock = ['$stateProvider',function(State) {
     State
       .state('app.profile', {
-        url: '/dashboard',
-        template: 'profile.html',
+        url: '/profile',
+        templateUrl: 'profile.html',
         controller: 'ProfileController'
       });
   }];
