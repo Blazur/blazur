@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('app.user', [
-    'app.user.services'
+    'app.user.auth',
+    'app.user.resource'
   ]);
 
 }());

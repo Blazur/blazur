@@ -19,7 +19,7 @@ function isAuthenticated() {
     .use(function(req, res, next) {
       // allow jwt to be placed on query string too
       if (req.query && req.query.hasOwnProperty('access_token')) {
-        req.headers.authorization = 'Beaer ' + req.query.access_token;
+        req.headers.authorization = 'Bearer ' + req.query.access_token;
       }
       validateJwt(req, res, next);
     })

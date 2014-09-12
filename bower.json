@@ -20,9 +20,13 @@
     "ngFx": "~1.0.4",
     "lodash": "~2.4.1",
     "angular-classy": "~0.4.2",
-    "angular-cookies": "~1.2.23"
+    "angular-cookies": "~1.2.23",
+    "angular-resource": "~1.2.24"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23"
+  },
+  "resolutions": {
+    "angular": "1.2.24"
   }
 }

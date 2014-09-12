@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app.home.directives.signinForm', [])
-  .directive('signinForm', ['$templateCache', 'UserFactory', function(tCache, User) {
+  .directive('signinForm', ['$templateCache', 'AuthFactory', function(tCache, Auth) {
     function signinFormLinkFn(scope, element, attr) {
       scope.form = {
         emailAttrs: {
@@ -12,7 +12,7 @@
       };
 
       scope.oauth = function(provider) {
-        User.signinOauth(provider);
+        Auth.signinOauth(provider);
       };
 
     }

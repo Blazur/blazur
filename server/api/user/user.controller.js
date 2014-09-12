@@ -3,10 +3,10 @@
 var User = require('./user.model');
 var _ = require('lodash');
 
-exports.index = function(req, res) {
-  // For admin
-  res.send('index');
-};
+// exports.index = function(req, res) {
+//   // For admin
+//   res.send('index');
+// };
 
 exports.update = function(req, res, next) {
   if (req.body._id) { delete req.body._id }

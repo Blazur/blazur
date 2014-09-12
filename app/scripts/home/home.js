@@ -18,9 +18,6 @@
     'ngFx'
   ])
   .config(configBlock)
-  .constant('Rest', {
-    url: 'http://localhost:4000'
-  })
   .classy.controller({
     name: 'HomeController',
 

@@ -1,7 +1,9 @@
 (function() {
   'use strict';
 
-  var configBlock = ['$stateProvider', '$urlRouterProvider', function(State, Url) {
+  var configBlock = ['$stateProvider', '$urlRouterProvider', '$httpProvider', function(State, Url, Http) {
+    Http.interceptors.push('authInterceptor');
+
     Url.otherwise('/');
 
     State
@@ -11,10 +13,9 @@
       });
   }];
 
-  var runBlock = ['$rootScope', '$state' , 'UserFactory', function(Root, State, UserFactory) {
+  var runBlock = ['$rootScope', '$state' , 'AuthFactory', function(Root, State, UserFactory) {
     // do some auth check stuff here
     Root.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState) {
-      console.log('about to go');
       if (toState.authenticate && !UserFactory.isSignedIn()) {
         State.go('app.home.landing');
       }
@@ -29,16 +30,27 @@
     'app.profile'
   ])
   .config(configBlock)
-  .run(runBlock)
-  .value('API', function(){
-    var api = {
-      dev: 'http://localhost:4000',
-      prod: '',
-      checkTokenUrl: function(env) {
-        return api[env] + '/validate';
+  .factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function($rootScope, $q, $cookieStore) {
+    return {
+      // add JWT to header here
+      request: function(config) {
+        config.headers = config.headers || {};
+        if ($cookieStore.get('__devkeep')) {
+          console.log($cookieStore.get('__devkeep'))
+          config.headers.Authorization = 'Bearer ' + $cookieStore.get('__devkeep');
+        }
+        return config;
       }
     };
-    return api;
+  }])
+  .run(runBlock)
+  .constant('API', {
+      dev: 'http://localhost:4000',
+      prod: '',
+      url: 'http://localhost:3000',
+      checkTokenUrl: function(env) {
+        return api[env] + '/validate';
+    }
   });
 
 }());
