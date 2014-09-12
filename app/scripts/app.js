@@ -13,6 +13,12 @@
 
   var runBlock = ['$rootScope', '$state' , 'UserFactory', function(Root, State, UserFactory) {
     // do some auth check stuff here
+    Root.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState) {
+      console.log('about to go');
+      if (toState.authenticate && !UserFactory.isSignedIn()) {
+        State.go('app.home.landing');
+      }
+    });
   }];
 
   angular.module('app', [

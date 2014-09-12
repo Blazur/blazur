@@ -5,7 +5,8 @@
       .state('app.profile', {
         url: '/profile',
         templateUrl: 'profile.html',
-        controller: 'ProfileController'
+        controller: 'ProfileController',
+        authenticate: true
       });
   }];
 
