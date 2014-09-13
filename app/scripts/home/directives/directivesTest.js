@@ -6,7 +6,11 @@ describe('app.home.directives', function() {
   /* Ripple directive */
   describe('ripple', function() {
     var $compile, element, $scope, $timeout;
-    beforeEach(module('app.home.directives.ripple'));
+
+
+
+
+    beforeEach(module('app'));
 
     beforeEach(inject(function($injector, $timeout) {
       $timeout = $timeout;

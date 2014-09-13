@@ -7,7 +7,7 @@
     var currentUser = {};
     // check to see if user is already signed in when
     if ($cookieStore.get('__devkeep')) {
-      currentUser = User.get();
+      // currentUser = User.get();
     }
 
     var AuthFactory = {

@@ -1,9 +1,8 @@
 (function() {
   'use strict';
 
-  angular.module('app.user.resource', ['ngResource'])
+  angular.module('app.user.resource', [])
   .factory('User', ['$resource', 'API', function($resource, API){
-    console.log(API)
     return $resource(API.url + '/api/users/:id/:controller', {
       id: '@_id'
     },

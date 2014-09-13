@@ -3,7 +3,6 @@ describe('app.home module', function() {
 
   describe('Home state', function() {
     var $scope, $state, getScope;
-
     beforeEach(module('app'));
 
     beforeEach(inject(function($injector) {

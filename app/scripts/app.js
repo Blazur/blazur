@@ -13,10 +13,10 @@
       });
   }];
 
-  var runBlock = ['$rootScope', '$state' , 'AuthFactory', function(Root, State, UserFactory) {
+  var runBlock = ['$rootScope', '$state' , 'AuthFactory', function(Root, State, AuthFactory) {
     // do some auth check stuff here
     Root.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState) {
-      if (toState.authenticate && !UserFactory.isSignedIn()) {
+      if (toState.authenticate && !AuthFactory.isSignedIn()) {
         State.go('app.home.landing');
       }
     });
@@ -24,6 +24,7 @@
 
   angular.module('app', [
     'ngFx',
+    'ngResource',
     'ui.router',
     'app.home',
     'app.user',
