@@ -16,9 +16,11 @@
   var runBlock = ['$rootScope', '$state' , 'AuthFactory', function(Root, State, AuthFactory) {
     // do some auth check stuff here
     Root.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState) {
-      if (toState.authenticate && !AuthFactory.isSignedIn()) {
-        State.go('app.home.landing');
-      }
+      AuthFactory.isSignedIn(function(signedIn) {
+        if (toState.authenticate && !signedIn) {
+          State.go('app.home.landing');
+        }
+      });
     });
   }];
 
@@ -37,7 +39,6 @@
       request: function(config) {
         config.headers = config.headers || {};
         if ($cookieStore.get('__devkeep')) {
-          console.log($cookieStore.get('__devkeep'))
           config.headers.Authorization = 'Bearer ' + $cookieStore.get('__devkeep');
         }
         return config;
@@ -46,12 +47,8 @@
   }])
   .run(runBlock)
   .constant('API', {
-      dev: 'http://localhost:4000',
-      prod: '',
-      url: 'http://localhost:3000',
-      checkTokenUrl: function(env) {
-        return api[env] + '/validate';
-    }
+      url: 'http://localhost:3000'
+
   });
 
 }());
