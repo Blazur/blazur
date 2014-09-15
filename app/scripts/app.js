@@ -4,7 +4,7 @@
   var configBlock = ['$stateProvider', '$urlRouterProvider', '$httpProvider', function(State, Url, Http) {
     Http.interceptors.push('authInterceptor');
 
-    Url.otherwise('/');
+    Url.otherwise('/profile');
 
     State
       .state('app', {
@@ -18,6 +18,7 @@
     Root.$on('$stateChangeStart', function(evt, toState, toStateParams, fromState) {
       AuthFactory.isSignedIn(function(signedIn) {
         if (toState.authenticate && !signedIn) {
+          evt.preventDefault();
           State.go('app.home.landing');
         }
       });

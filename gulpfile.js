@@ -225,10 +225,7 @@ gulp.task('serve', ['styles', 'api'], function () {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    // server: {
-      // baseDir: ['.tmp', 'app']
-      proxy: 'localhost:4000'
-    // }
+    proxy: 'localhost:4000'
   });
 
   gulp.watch(['app/**/*.html'], reload);
@@ -245,10 +242,7 @@ gulp.task('serve:dist', ['api:prod'], function () {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    // server: {
-      // baseDir: 'dist'
-      proxy: 'localhost:8080'
-    // }
+    proxy: 'localhost:8080'
 
   });
 });

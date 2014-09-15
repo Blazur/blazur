@@ -3,7 +3,8 @@
 
   angular.module('app.user.auth', ['ngCookies'])
 
-  .factory('AuthFactory', ['$http', '$window','$state', '$cookieStore', '$q', '$timeout', 'API', 'User', function($http, $win, $state, $cookieStore, $q, $timeout, API, User) {
+  .factory('AuthFactory', ['$http', '$window','$state', '$cookieStore', '$q', '$interval', 'API', 'User',
+  function($http, $win, $state, $cookieStore, $q, $interval, API, User) {
     var currentUser = {};
     // check to see if user is already signed in when
     if ($cookieStore.get('__devkeep')) {
@@ -43,20 +44,23 @@
         var windowParams = 'location=0,status0,modal=yes,alwaysRaised=yes,width=800,height=600';
         var oauthWindow = $win.open(API.url + '/auth/' + provider, '_blank', windowParams);
 
-        oauthWindow.onunload = function(e) {
-          var token;
-          $timeout(function() {
-            token = $cookieStore.get('__devkeep');
-          }, 500).then(function() {
+        checkIfClosed();
 
-            if (!token) {
-              // show error
-            } else {
-              currentUser = User.get();
-              $state.go('app.profile');
+        function checkIfClosed() {
+          var ouathInterval = $interval(function() {
+            if (!oauthWindow || oauthWindow.closed) {
+              var token;
+              token = $cookieStore.get('__devkeep');
+              if (!token) {
+
+              } else {
+                currentUser = User.get();
+                $state.go('app.profile');
+              }
+              $interval.cancel(ouathInterval);
             }
-          });
-        };
+          }, 500);
+        }
       }
     };
 
