@@ -12,10 +12,13 @@ exports.setup = function(User, config) {
   function ghCallback(accessToken, refreshToken, profile, done) {
     var user = {
       email: profile.emails[0].value,
+      name: profile.displayName,
+      username: profile.username,
       providers:{
         github: {
           id: profile.id,
-          token: accessToken
+          token: accessToken,
+          gravatarId: profile._json.gravatar_id
         }
       }
     };

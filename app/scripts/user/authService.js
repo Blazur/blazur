@@ -24,7 +24,7 @@
       // we need this in our .run to check to see if the user is signed in or not
       isSignedIn: function(cb) {
         if(currentUser.hasOwnProperty('$promise')) {
-          currentUser.$promise.then(function() {
+          currentUser.$promise.then(function(user) {
             cb(true);
           }).catch(function() {
             cb(false);

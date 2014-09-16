@@ -60,6 +60,8 @@
     <script src="scripts/user/authService.js"></script>
     <script src="scripts/user/userResource.js"></script>
     <script src="scripts/profile/profile.js"></script>
+    <script src="scripts/profile/postAJob/post.js"></script>
+    <script src="scripts/profile/history/history.js"></script>
     <!-- endbuild -->
 
     <script type="text/ng-template" id="paperInput.html">
@@ -68,6 +70,17 @@
         <span class="highlight"></span>
         <span class="bar"></span>
         <label>{{ label }}</label>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="profile/post-a-job.html">
+      <div>
+        <h1>Post a Job</h1>
+      </div>
+    </script>
+     <script type="text/ng-template" id="profile/history.html">
+      <div>
+        <h1>History</h1>
       </div>
     </script>
 
@@ -92,17 +105,29 @@
       <div id="profile-container" class="canvas">
         <div id="side-bar" class="g-wide--1 shadow-2-right">
           <section>
-            <h2>Profile pic and name here</h2>
+            <img ng-src="http://www.gravatar.com/avatar/{{ user.providers.github.gravatarId }}.png" alt="{{ user.username }}"/>
+            <h3>{{ user.name }}</h3>
           </section>
           <ul>
-            <li><a href="#">Post a job</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Sign out</a></li>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ng-click="goTo('post')">
+              <a ui-sref="app.profile.post">Post a job</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5">
+              <a href="#">Messages <div ng-if="hasMessages" class="message-noti">{{ user.messages.length }}</div></a>
+            </li>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ng-click="goTo('history')">
+              <a ui-sref="app.profile.history">History</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5">
+              <a href="#">Settings</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5">
+              <a href="#">Sign out</a>
+            </li>
           </ul>
         </div>
         <div class="g-wide--2 g-wide--last">
-        <h1>content here</h1>
+          <div ui-view fx-animate></div>
         </div>
       </div>
     </script>

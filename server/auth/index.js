@@ -1,7 +1,6 @@
 'use strict';
 
 var express   = require('express'),
-    passport  = require('passport'),
     config    = require('../config/environment'),
     User      = require('../api/user/user.model');
 

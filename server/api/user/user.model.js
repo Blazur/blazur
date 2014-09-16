@@ -12,10 +12,21 @@ var UserSchema = new mongoose.Schema({
     unique: true
   },
 
+  name: String,
+
+  username: String,
+
+  messages: [
+    {
+      type: mongoose.Schema.ObjectId,
+    }
+  ],
+
   providers: {
     github: {
       id: String,
-      token: String
+      token: String,
+      gravatarId: String
     },
     local: {
       password: String

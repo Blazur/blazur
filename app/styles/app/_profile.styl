@@ -1,27 +1,46 @@
 #profile-container
   height 1000px
   & #side-bar
-    background-color primaryLight
+    background-color primary
     height 1000px
-    border-right solid 2px accent
     & section
-      border-bottom white solid 2px
-      background-color primary
+      background-color primaryDark
       color white
-      padding 5px 15px
+      padding 10px 15px
+      text-decoration underline
       height 15%
       width 100%
+      & img
+        width 30%
+        border-radius 100%
+        border solid accent 2px
     & ul
       padding 0px
-      padding-top 10px
       & li
         font-size 1.8em
         margin-bottom 10px
-        padding-top 5px
-        padding-bottom 5px
+        padding-top 10px
+        padding-bottom 10px
+        &.active
+          background-color primaryLight
+          border-right solid accent 3px
+          cursor pointer
+
         &:before
           display none
+        &:hover
+          background-color primaryLight
+          cursor pointer
+          border-right solid accent 3px
         & a
           color white
           text-decoration none
+          & .message-noti
+            display inline-block
+            width 30px
+            height 30px
+            background-color googleRed
+            border-radius 50%
+            text-align center
+            font-size 0.5em
 

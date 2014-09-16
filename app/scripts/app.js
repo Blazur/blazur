@@ -4,7 +4,7 @@
   var configBlock = ['$stateProvider', '$urlRouterProvider', '$httpProvider', function(State, Url, Http) {
     Http.interceptors.push('authInterceptor');
 
-    Url.otherwise('/profile');
+    Url.otherwise('/profile/history');
 
     State
       .state('app', {

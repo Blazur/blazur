@@ -8,7 +8,8 @@ User.find({}).remove(function() {
     providers: {
       github: {
         id: 'efhkshfiwhf',
-        token: 'sfosuowsfh hwowojwjfpu83289h'
+        token: 'sfosuowsfh hwowojwjfpu83289h',
+        gravatarId: 'safsdafsdafsdf'
       }
     },
     email: 'test@test.com'
