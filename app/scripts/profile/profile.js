@@ -27,9 +27,7 @@
       }.bind(this));
     },
 
-    goTo: function(state) {
-      this.$state.go('app.profile.' + state);
-    },
+    creditCard: {},
 
     inject: ['$scope', '$state', 'AuthFactory']
   });
