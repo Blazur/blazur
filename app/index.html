@@ -62,6 +62,7 @@
     <script src="scripts/profile/profile.js"></script>
     <script src="scripts/profile/postAJob/post.js"></script>
     <script src="scripts/profile/history/history.js"></script>
+    <script src="scripts/profile/settings/settings.js"></script>
     <!-- endbuild -->
 
     <script type="text/ng-template" id="paperInput.html">
@@ -80,11 +81,15 @@
     </script>
 
     <script type="text/ng-template" id="new-job.html">
-
     </script>
-     <script type="text/ng-template" id="profile/history.html">
-      <div>
 
+    <script type="text/ng-template" id="profile/history.html">
+      <div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="profile/settings.html">
+      <div>
       </div>
     </script>
 
@@ -123,7 +128,7 @@
               <a ui-sref="app.profile.history">History</a>
             </li>
             <li ripple="primaryDark" duration="1.5">
-              <a href="#">Settings</a>
+              <a ui-sref="app.profile.settings">Settings</a>
             </li>
             <li ripple="primaryDark" duration="1.5">
               <a href="#">Sign out</a>

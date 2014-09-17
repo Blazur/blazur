@@ -13,7 +13,8 @@
   angular.module('app.profile', [
     'classy',
     'app.profile.post',
-    'app.profile.history'
+    'app.profile.history',
+    'app.profile.settings'
   ])
   .config(configBlock)
   .classy.controller({
