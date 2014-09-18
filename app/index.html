@@ -62,6 +62,7 @@
     <script src="scripts/profile/profile.js"></script>
     <script src="scripts/profile/postAJob/post.js"></script>
     <script src="scripts/profile/history/history.js"></script>
+    <script src="scripts/profile/settings/settings.js"></script>
     <!-- endbuild -->
 
     <script type="text/ng-template" id="paperInput.html">
@@ -91,9 +92,29 @@
         </form>
       </div>
     </script>
-     <script type="text/ng-template" id="profile/history.html">
-      <div>
 
+    <script type="text/ng-template" id="profile/history.html">
+      <div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="profile/settings.html">
+      <div class="settings">
+        <div class="settings-header">
+          <h1><strong>Dev</strong>keep : <span class="heavy-text">Settings</span></h1>
+        </div>
+
+        <div class="card-form">
+          <span class="form-header">Update Your Credit Card Info</span>
+          <input placeholder="Cardholder Name" type="text" ng-model="creditCard.name" />
+          <input placeholder="Card Number" type="number" ng-model="creditCard.number" />
+          <input placeholder="CVC Number" type="number" ng-model="creditCard.cvv" />
+          <input placeholder="Expiration Month" type="text" ng-model="creditCard.month" />
+          <input placeholder="Expiration Year" type="text" ng-model="creditCard.year" />
+          <br>
+          <paper-button class="paper-button raised" ripple="primaryDark" text="submit"></paper-button>
+
+        </div>
       </div>
     </script>
 
@@ -131,8 +152,8 @@
             <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ng-click="goTo('history')">
               <a ui-sref="app.profile.history">History</a>
             </li>
-            <li ripple="primaryDark" duration="1.5">
-              <a href="#">Settings</a>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ui-sref="app.profile.settings">
+              <a>Settings</a>
             </li>
             <li ripple="primaryDark" duration="1.5">
               <a href="#">Sign out</a>

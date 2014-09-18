@@ -13,7 +13,8 @@
   angular.module('app.profile', [
     'classy',
     'app.profile.post',
-    'app.profile.history'
+    'app.profile.history',
+    'app.profile.settings'
   ])
   .config(configBlock)
   .classy.controller({
@@ -26,9 +27,7 @@
       }.bind(this));
     },
 
-    goTo: function(state) {
-      this.$state.go('app.profile.' + state);
-    },
+    creditCard: {},
 
     inject: ['$scope', '$state', 'AuthFactory']
   });
