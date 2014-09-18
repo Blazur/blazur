@@ -76,11 +76,21 @@
 
     <script type="text/ng-template" id="profile/post-a-job.html">
       <div class="main">
-        <new-job />
+        <new-job></new-job>
+
       </div>
     </script>
 
     <script type="text/ng-template" id="new-job.html">
+      <div class="job-form g-wide--3 g-wide--last g-wide--push-1">
+        <form name="jobForm" novalidate ng-submit="createJob()">
+          <paper-input label="job title" type="text" value="job.title" required ng-minlength="5" ng-maxlength="15"></paper-input>
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-if="ready">
+            <paper-input label="price" type="number" value="job.price" required></paper-input>
+          </div>
+          {{ job | json }}
+        </form>
+      </div>
     </script>
 
     <script type="text/ng-template" id="profile/history.html">
@@ -127,7 +137,7 @@
 
     <script type="text/ng-template" id="profile.html">
       <div id="profile-container" class="canvas">
-        <div id="side-bar" class="g-wide--1 shadow-2-right">
+        <div id="side-bar" class="g-wide--1 g-wide--last shadow-2-right">
           <section>
             <img ng-src="http://www.gravatar.com/avatar/{{ user.providers.github.gravatarId }}.png" alt="{{ user.username }}"/>
             <h3>{{ user.name }}</h3>

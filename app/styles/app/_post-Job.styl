@@ -1,0 +1,26 @@
+// .job-form .group input, .job-form .group .bar for paper-input
+.job-form
+  background-color white
+  border-radius 3px
+  height 62px
+  width 100%
+  shadow(1)
+  & form .group input
+    width 100%
+    border-bottom none
+    &:focus ~ label
+      top -5px
+     &.ng-dirty ~ label
+      top -5px
+  & form .group .bar
+    width 100%
+  & div
+    padding 10px
+    & textarea
+      width 100%
+      // border none
+      outline none
+      resize none
+      height 300px
+
+
