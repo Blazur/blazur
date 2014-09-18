@@ -29,6 +29,7 @@ var pagespeed = require('psi');
 var reload = browserSync.reload;
 var _ = require('lodash');
 var karma = require('karma').server;
+var mocha = require('gulp-spawn-mocha');
 var variables;
 
 try {
@@ -50,9 +51,19 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-gulp.task('test:ci', ['test', 'all'], function() {
-  $.run('karma start karma.conf.js --browsers PhantomJS').exec()
-    .pipe($.run('mocha server/**/*.spec.js'));
+function mochaTest() {
+  return gulp.src('server/**/*.spec.js')
+    .pipe(mocha({
+      R: 'nyan'
+    }))
+    .on('error', console.warn.bind(console));
+}
+
+
+gulp.task('test:ci', ['test', 'all', 'karma:ci'], function() {
+  return mochaTest().on('error', function(e) {
+    throw e;
+  });
 });
 
 // gulp.task('test:ci', ['test','all','karma:ci', 'mocha'], function() {
@@ -62,14 +73,19 @@ gulp.task('test:ci', ['test', 'all'], function() {
 //     });
 // });
 
-gulp.task('test:all', ['test', 'all'], function() {
-  $.run('karma start karma.conf.js').exec()
-    .pipe($.run('mocha server/**/*.spec.js'));
-});
+// gulp.task('test:all', ['test', 'all'], function() {
+//   $.run('karma start karma.conf.js').exec()
+//     .pipe($.run('mocha server/**/*.spec.js'));
+// });
 
-gulp.task('mocha', ['test', 'all'], function() {
-  $.run('mocha server/**/*.spec.js').exec();
-});
+// gulp.task('mocha', ['test', 'all'], function() {
+//   return gulp.src('server/**/*.spec.js', { read: 'false' })
+//     .pipe($.mocha({ reporter: 'nyan' }))
+//     .on('error', function(error) {
+
+//       process.exit(1);
+//     });
+// });
 
 gulp.task('karma', function(done) {
   karma.start({
@@ -78,13 +94,13 @@ gulp.task('karma', function(done) {
   }, done);
 });
 
-// gulp.task('karma:ci', function(done) {
-//   karma.start({
-//     configFile: __dirname + '/karma.conf.js',
-//     browsers: ['PhantomJS'],
-//     singleRun: true
-//   }, done);
-// });
+gulp.task('karma:ci', function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['PhantomJS'],
+    singleRun: true
+  }, done);
+});
 
 gulp.task('prod', function() {
   process.env.NODE_ENV = 'production';
