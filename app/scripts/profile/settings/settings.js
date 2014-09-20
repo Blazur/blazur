@@ -59,7 +59,7 @@
 
         var ccName = angular.element(document.getElementById('cc-name')).children();
         ccName.on('focus', function() {
-          TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
+          TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
             scope.number = true;
             scope.$apply();
           } });
@@ -67,7 +67,7 @@
 
         var ccNumber = angular.element(document.getElementById('cc-number')).children();
         ccNumber.on('focus', function() {
-          TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
+          TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
             scope.cvv = true;
             scope.$apply();
           } });
@@ -75,7 +75,7 @@
 
         var ccCVV = angular.element(document.getElementById('cc-cvv')).children();
         ccCVV.on('focus', function() {
-          TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
+          TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
             scope.expiration = true;
             scope.$apply();
           } });
@@ -83,7 +83,7 @@
 
         var ccExpiration = angular.element(document.getElementById('cc-expiration')).children();
         ccExpiration.on('focus', function() {
-          TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
+          TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
             scope.submit = true;
             scope.$apply();
           } });
@@ -100,11 +100,15 @@
 
 
         input.on('blur', function() {
-          if (scope.creditCard.name || scope.creditCard.number) {
+          if (scope.creditCard.name || scope.creditCard.number ) {
             return;
           }
 
           scope.ready = false;
+          scope.number = false;
+          scope.cvv = false;
+          scope.expiration = false;
+          scope.submit = false;
           scope.$apply();
           TweenMax.to(element, 0.5, { height: '62px', ease: Strong.easeInOut });
         });
