@@ -93,28 +93,39 @@
       </div>
     </script>
 
-    <script type="text/ng-template" id="profile/history.html">
-      <div>
+    <script type="text/ng-template" id="credit-card.html">
+      <div class="settings-form g-wide--3 g-wide--last g-wide--push-1">
+        <form name="creditCardForm" novalidate ng-submit="saveCreditCard(creditCard)">
+
+          <div>
+            <paper-input label="Cardholder Name" id="cc-name" type="text" value="creditCard.name" required ng-minlength="3" ng-maxlength="25"></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="number">
+            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="cvv">
+            <paper-input label="Security Code" id="cc-cvv" type="text" value="creditCard.cvv" required ng-minlength="3" ng-maxlength="4"></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="expiration">
+            <paper-input label="Expiration (MM/YYYY)" id="cc-expiration" type="text" value="creditCard.expiration" required></paper-input>
+          </div>
+
+          <paper-button type="submit" class="paper-button raised right" ripple="primaryDark" text="submit" ng-show="submit"></paper-button>
+        </form>
       </div>
     </script>
 
     <script type="text/ng-template" id="profile/settings.html">
-      <div class="settings">
-        <div class="settings-header">
-          <h1><strong>Dev</strong>keep : <span class="heavy-text">Settings</span></h1>
-        </div>
+      <div class="main">
+        <credit-card></credit-card>
+      </div>
+    </script>
 
-        <div class="card-form">
-          <span class="form-header">Update Your Credit Card Info</span>
-          <input placeholder="Cardholder Name" type="text" ng-model="creditCard.name" />
-          <input placeholder="Card Number" type="number" ng-model="creditCard.number" />
-          <input placeholder="CVC Number" type="number" ng-model="creditCard.cvv" />
-          <input placeholder="Expiration Month" type="text" ng-model="creditCard.month" />
-          <input placeholder="Expiration Year" type="text" ng-model="creditCard.year" />
-          <br>
-          <paper-button class="paper-button raised" ripple="primaryDark" text="submit"></paper-button>
-
-        </div>
+    <script type="text/ng-template" id="profile/history.html">
+      <div>
       </div>
     </script>
 
