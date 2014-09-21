@@ -27,6 +27,12 @@
       scope: {},
       link: function(scope, element, attr) {
         scope.creditCard = {};
+        scope.ready = {
+          number: false,
+          cvv: false,
+          expiration: false,
+          submit: false
+        };
 
         scope.saveCreditCard = function(creditCard) {
           console.log('Saving Credit Card =>', creditCard);
@@ -34,33 +40,10 @@
 
         var input = element.find('input');
 
-        // var ccElements = ['cc-name', 'cc-number', 'cc-ccv', 'cc-expiration'];
-        // var ccCallbacks = {
-        //   'cc-name': scope.number = true,
-        //   'cc-number': scope.cvv = true,
-        //   'cc-ccv': scope.expiration = true,
-        //   'cc-expiration': scope.submit = true
-        // };
-
-        // var ccValidation = function(ccElements) {
-        //   _.each(ccElements, function(element) {
-        //     var ccInput = angular.element(document.getElementById(element)).children();
-        //     ccInput.on('focus', function() {
-        //       TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
-        //         // scope.number = true;
-        //         var shit = function() { return ccCallbacks[element]; };
-        //         shit();
-        //         scope.$apply();
-        //       } });
-        //     });
-        //   });
-        // };
-
-
         var ccName = angular.element(document.getElementById('cc-name')).children();
         ccName.on('focus', function() {
           TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
-            scope.number = true;
+            scope.ready.number = true;
             scope.$apply();
           } });
         });
@@ -68,7 +51,7 @@
         var ccNumber = angular.element(document.getElementById('cc-number')).children();
         ccNumber.on('focus', function() {
           TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
-            scope.cvv = true;
+            scope.ready.cvv = true;
             scope.$apply();
           } });
         });
@@ -76,7 +59,7 @@
         var ccCVV = angular.element(document.getElementById('cc-cvv')).children();
         ccCVV.on('focus', function() {
           TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
-            scope.expiration = true;
+            scope.ready.expiration = true;
             scope.$apply();
           } });
         });
@@ -84,23 +67,15 @@
         var ccExpiration = angular.element(document.getElementById('cc-expiration')).children();
         ccExpiration.on('focus', function() {
           TweenMax.to(element, 0.5, { height: '600px', ease: Strong.easeInOut, onComplete: function() {
-            scope.submit = true;
+            scope.ready.submit = true;
             scope.$apply();
           } });
         });
 
-        // input.on('focus', function() {
-        //   console.log('fuck pls work');
-        //   ccValidation(ccElements);
-        //   // TweenMax.to(element, 0.5, { height: '500px', ease: Strong.easeInOut, onComplete: function() {
-        //   //   scope.ready = true;
-        //   //   scope.$apply();
-        //   // } });
-        // });
-
-
         input.on('blur', function() {
-          if (scope.creditCard.name || scope.creditCard.number ) {
+          if (_.any(_.values(scope.ready), function(item) {
+            return item === true;
+          })) {
             return;
           }
 
