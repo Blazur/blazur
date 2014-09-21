@@ -15,6 +15,8 @@
   "strict": true,
   "globals": {
     "angular": true,
-    "_": true
+    "_": true,
+    "TweenMax": true,
+    "Strong": true
   }
 }
