@@ -38,7 +38,7 @@
           console.log('Saving Credit Card =>', creditCard);
         };
 
-        var input = element.find('input');
+        // var input = element.find('input');
 
         var ccName = angular.element(document.getElementById('cc-name')).children();
         ccName.on('focus', function() {
@@ -72,22 +72,48 @@
           } });
         });
 
-        input.on('blur', function() {
-          if (_.any(_.values(scope.ready), function(item) {
-            console.log('shit', scope.ready);
-            console.log('fuck', _.any(_.values(scope.ready)));
-            return item === true;
-          })) {
-            return;
-          }
 
-          scope.ready.number = false;
-          scope.ready.cvv = false;
-          scope.ready.expiration = false;
-          scope.ready.submit = false;
-          scope.$apply();
-          TweenMax.to(element, 0.5, { height: '62px', ease: Strong.easeInOut });
+        ccName.on('blur', function() {
+          if (ccName.hasClass('ng-invalid')) {
+            console.log('ccName is ng-invalid');
+            scope.ready.number = false;
+          }
         });
+
+        ccNumber.on('blur', function() {
+          if (ccNumber.hasClass('ng-invalid')) {
+            scope.ready.cvv = false;
+          }
+        });
+
+        ccCVV.on('blur', function() {
+          if (ccCVV.hasClass('ng-invalid')) {
+            scope.ready.expiration = false;
+          }
+        });
+
+        ccExpiration.on('blur', function() {
+          if (ccExpiration.hasClass('ng-invalid')) {
+            scope.ready.submit = false;
+          }
+        });
+
+        // input.on('blur', function() {
+        //   if (_.any(_.values(scope.ready), function(item) {
+        //     // console.log('shit', scope.ready);
+        //     // console.log('fuck', _.any(_.values(scope.ready)));
+        //     return item === true;
+        //   })) {
+        //     return;
+        //   } else {
+        //     scope.ready.number = false;
+        //     scope.ready.cvv = false;
+        //     scope.ready.expiration = false;
+        //     scope.ready.submit = false;
+        //     scope.$apply();
+        //     TweenMax.to(element, 0.5, { height: '62px', ease: Strong.easeInOut });
+        //   }
+        // });
       }
     };
   }])
