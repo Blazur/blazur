@@ -102,7 +102,7 @@
           </div>
 
           <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.number">
-            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required></paper-input>
+            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required ng-minlength="15" ng-maxlength="16"></paper-input>
           </div>
 
           <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.cvv">
