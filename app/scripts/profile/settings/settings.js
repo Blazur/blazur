@@ -98,22 +98,6 @@
           }
         });
 
-        // input.on('blur', function() {
-        //   if (_.any(_.values(scope.ready), function(item) {
-        //     // console.log('shit', scope.ready);
-        //     // console.log('fuck', _.any(_.values(scope.ready)));
-        //     return item === true;
-        //   })) {
-        //     return;
-        //   } else {
-        //     scope.ready.number = false;
-        //     scope.ready.cvv = false;
-        //     scope.ready.expiration = false;
-        //     scope.ready.submit = false;
-        //     scope.$apply();
-        //     TweenMax.to(element, 0.5, { height: '62px', ease: Strong.easeInOut });
-        //   }
-        // });
       }
     };
   }])
