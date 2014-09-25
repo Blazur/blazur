@@ -6,6 +6,7 @@ exports = module.exports = function(app) {
 
   app.use('/api/users', require('./api/user'));
   app.use('/api/jobs', require('./api/job'));
+  app.use('/api/settings', require('.api/settings'));
   app.use('/auth', require('./auth'));
 
   app.route('/*(api|auth|fonts|images|scripts|styles|bower_components|)/*')
