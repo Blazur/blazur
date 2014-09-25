@@ -88,7 +88,7 @@
           'ease': Expo.easeOut,
           onComplete: function() {
             complete = true;
-            touch.remove();
+            // touch.remove();
           }
         });
       };

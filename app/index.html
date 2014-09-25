@@ -60,6 +60,9 @@
     <script src="scripts/user/authService.js"></script>
     <script src="scripts/user/userResource.js"></script>
     <script src="scripts/profile/profile.js"></script>
+    <script src="scripts/profile/postAJob/post.js"></script>
+    <script src="scripts/profile/history/history.js"></script>
+    <script src="scripts/profile/settings/settings.js"></script>
     <!-- endbuild -->
 
     <script type="text/ng-template" id="paperInput.html">
@@ -71,28 +74,110 @@
       </div>
     </script>
 
+    <script type="text/ng-template" id="profile/post-a-job.html">
+      <div class="main">
+        <div class="job-form g-wide--full g-wide--last g-wide--push-1">
+          <form name="jobForm" novalidate ng-submit="createJob(jobForm)">
+            <paper-input label="Job Title" type="text" value="job.name" required ng-minlength="5" ng-maxlength="15">
+            </paper-input>
+
+            <paper-input label="Job Price" type="number" value="job.price" required>
+            </paper-input>
+
+            <paper-input label="Job description" type="text" value="job.description" required ng-minlength="5" ng-maxlength="15">
+            </paper-input>
+            <paper-button type="submit" ng-disabled="jobForm.$invalid" class="" ripple="accent" text="done"></paper-button>
+            {{ job | json }}
+          </form>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="new-job.html">
+
+    </script>
+
+    <script type="text/ng-template" id="credit-card.html">
+      <div class="settings-form g-wide--3 g-wide--last g-wide--push-1">
+        <form name="creditCardForm" novalidate ng-submit="saveCreditCard(creditCard)">
+
+          <div>
+            <paper-input label="Cardholder Name" id="cc-name" type="text" value="creditCard.name" required ng-minlength="3" ng-maxlength="25"></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.number">
+            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required ng-minlength="15" ng-maxlength="16"></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.cvv">
+            <paper-input label="Security Code" id="cc-cvv" type="text" value="creditCard.cvv" required ng-minlength="3" ng-maxlength="4"></paper-input>
+          </div>
+
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.expiration">
+            <paper-input label="Expiration (MM/YYYY)" id="cc-expiration" type="text" value="creditCard.expiration" required></paper-input>
+          </div>
+
+          <paper-button type="submit" class="paper-button raised right" ripple="primaryDark" text="submit" ng-show="ready.submit"></paper-button>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="profile/settings.html">
+      <div class="main">
+        <credit-card></credit-card>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="profile/history.html">
+      <div>
+      </div>
+    </script>
+
     <script type="text/ng-template" id="signinForm.html">
       <div class="main">
-        <form name="signinForm" novalidate ng-submit="oauth('github')">
+        <form name="signinForm" novalidate >
           <div class="card card-form">
             <paper-input label="email" type="email" attrs="form.emailAttrs" value="form.email" ng-maxlength="15" ng-minlength="4" required>email</paper-input>
 
             <paper-input label="password" type="password" value="form.password" required ng-maxlength="10" ng-minlength="6">password</paper-input>
 
             <paper-button type="submit" ng-disabled="signinForm.$invalid" class="" ripple="accent" text="sign in"></paper-button>
-            <div class="btb-github">
-              <i></i>
-              <paper-button type>
-              </paper-button>
-            </div>
+            <paper-button ng-click="oauth('github')" text="github" class="canvas" ripple="accent">
+            </paper-button>
+            <paper-button text="Google+" class="google-red" ripple></paper-button>
           </div>
         </form>
       </div>
     </script>
 
     <script type="text/ng-template" id="profile.html">
-      <div id="profile-container">
-      <h1>Profile here</h1>
+      <div id="profile-container" class="canvas">
+        <div id="side-bar" class="g-wide--1 g-wide--last shadow-2-right">
+          <section>
+            <img ng-src="{{ user.github.avatar_url }}" alt="{{ user.username }}"/>
+            <h3>{{ user.name }}</h3>
+          </section>
+          <ul>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ui-sref="app.profile.post">
+              <a>Post a job</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5">
+              <a href="#">Messages <div ng-if="hasMessages" class="message-noti">{{ user.messages.length }}</div></a>
+            </li>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ng-click="goTo('history')">
+              <a ui-sref="app.profile.history">History</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ui-sref="app.profile.settings">
+              <a>Settings</a>
+            </li>
+            <li ripple="primaryDark" duration="1.5">
+              <a href="#">Sign out</a>
+            </li>
+          </ul>
+        </div>
+        <div class="g-wide--2 g-wide--last">
+          <div ui-view fx-animate></div>
+        </div>
       </div>
     </script>
 

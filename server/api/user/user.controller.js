@@ -21,5 +21,5 @@ exports.update = function(req, res, next) {
 };
 
 exports.me = function(req, res) {
-  res.json(req.user.profile);
+  res.json(req.user);
 };

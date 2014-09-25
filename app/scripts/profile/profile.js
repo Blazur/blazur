@@ -10,15 +10,25 @@
       });
   }];
 
-  angular.module('app.profile', ['classy'])
+  angular.module('app.profile', [
+    'classy',
+    'app.profile.post',
+    'app.profile.history',
+    'app.profile.settings'
+  ])
   .config(configBlock)
   .classy.controller({
     name: 'ProfileController',
 
     init: function() {
-
+      this.AuthFactory.getCurrentUser().$promise.then(function(user) {
+        this.$.user = user;
+        this.$.hasMessages = !!this.$.user.messages.length;
+      }.bind(this));
     },
 
-    inject: ['$scope']
+    creditCard: {},
+
+    inject: ['$scope', '$state', 'AuthFactory']
   });
 }());

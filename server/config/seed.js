@@ -5,21 +5,26 @@ var User = require('../api/user/user.model');
 
 User.find({}).remove(function() {
   User.create({
-    providers: {
-      github: {
-        id: 'efhkshfiwhf',
-        token: 'sfosuowsfh hwowojwjfpu83289h'
-      }
+    providers: 'github',
+    username: 'dougalsscalhoun',
+
+    github: {
+      id: 'efhkshfiwhf',
+      token: 'sfosuowsfh hwowojwjfpu83289h',
+      avavtar_url: 'http://somthing.com.1234'
     },
+    developer: true,
     email: 'test@test.com'
   }, {
-    providers: {
-      local: {
-        password: 'test'
-      }
+    providers: 'github',
+    username: 'dooska',
+    github: {
+      id: 'insnajioweriewrognl',
+      token: 'sfosuowsfh hwowojwjfpu83289h',
+      avavtar_url: 'http://somthing.com.1234'
     },
-    email: 'admin@admin.com',
-  }, function() {
+    email: 'test212@test.com'
+  }, function(nulll, user1, user2) {
       console.log('finished populating users');
     }
   );

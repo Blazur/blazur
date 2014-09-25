@@ -56,8 +56,6 @@
           // compile and set the initial css for elements
           nvmdButton = compile(nvmdButton)(scope);
           form = compile(form)(scope);
-          console.log(form);
-
           /**
            * @card:
                 - the actual form card

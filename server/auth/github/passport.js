@@ -12,14 +12,18 @@ exports.setup = function(User, config) {
   function ghCallback(accessToken, refreshToken, profile, done) {
     var user = {
       email: profile.emails[0].value,
-      providers:{
-        github: {
-          id: profile.id,
-          token: accessToken
-        }
+      name: profile.displayName,
+      username: profile.username,
+      provider: 'github',
+      github: {
+        id: profile.id,
+        token: accessToken,
+        avatar_url: profile._json.avatar_url
       }
     };
-    User.findOneOrCreateOne({ 'providers.github.id': profile.id }, user)
+
+    console.log(profile._json);
+    User.findOneOrCreateOne({ 'github.id': profile.id }, user)
       .then(function(user) {
         done(null, user);
       })
