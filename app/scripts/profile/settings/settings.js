@@ -11,8 +11,8 @@
         animation: {
           speed: '600',
           ease: 'strong',
-          leave: 'grow-in',
-          enter: 'shrink-out'
+          leave: 'shrink-out',
+          enter: 'shrink-in'
         }
       });
   }];

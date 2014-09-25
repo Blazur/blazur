@@ -77,12 +77,11 @@
     <script type="text/ng-template" id="profile/post-a-job.html">
       <div class="main">
         <new-job></new-job>
-
       </div>
     </script>
 
     <script type="text/ng-template" id="new-job.html">
-      <div class="job-form g-wide--3 g-wide--last g-wide--push-1">
+      <div class="job-form g-wide--full g-wide--last g-wide--push-1">
         <form name="jobForm" novalidate ng-submit="createJob()">
           <paper-input label="job title" type="text" value="job.title" required ng-minlength="5" ng-maxlength="15"></paper-input>
           <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-if="ready">
@@ -143,8 +142,8 @@
             <h3>{{ user.name }}</h3>
           </section>
           <ul>
-            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ng-click="goTo('post')">
-              <a ui-sref="app.profile.post">Post a job</a>
+            <li ripple="primaryDark" duration="1.5" ui-sref-active="active" ui-sref="app.profile.post">
+              <a>Post a job</a>
             </li>
             <li ripple="primaryDark" duration="1.5">
               <a href="#">Messages <div ng-if="hasMessages" class="message-noti">{{ user.messages.length }}</div></a>
