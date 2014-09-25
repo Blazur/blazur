@@ -101,19 +101,19 @@
             <paper-input label="Cardholder Name" id="cc-name" type="text" value="creditCard.name" required ng-minlength="3" ng-maxlength="25"></paper-input>
           </div>
 
-          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="number">
-            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required></paper-input>
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.number">
+            <paper-input label="Card Number" id="cc-number" type="text" value="creditCard.number" required ng-minlength="15" ng-maxlength="16"></paper-input>
           </div>
 
-          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="cvv">
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.cvv">
             <paper-input label="Security Code" id="cc-cvv" type="text" value="creditCard.cvv" required ng-minlength="3" ng-maxlength="4"></paper-input>
           </div>
 
-          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="expiration">
+          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-show="ready.expiration">
             <paper-input label="Expiration (MM/YYYY)" id="cc-expiration" type="text" value="creditCard.expiration" required></paper-input>
           </div>
 
-          <paper-button type="submit" class="paper-button raised right" ripple="primaryDark" text="submit" ng-show="submit"></paper-button>
+          <paper-button type="submit" class="paper-button raised right" ripple="primaryDark" text="submit" ng-show="ready.submit"></paper-button>
         </form>
       </div>
     </script>
