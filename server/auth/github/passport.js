@@ -14,15 +14,16 @@ exports.setup = function(User, config) {
       email: profile.emails[0].value,
       name: profile.displayName,
       username: profile.username,
-      providers:{
-        github: {
-          id: profile.id,
-          token: accessToken,
-          gravatarId: profile._json.gravatar_id
-        }
+      provider: 'github',
+      github: {
+        id: profile.id,
+        token: accessToken,
+        avatar_url: profile._json.avatar_url
       }
     };
-    User.findOneOrCreateOne({ 'providers.github.id': profile.id }, user)
+
+    console.log(profile._json);
+    User.findOneOrCreateOne({ 'github.id': profile.id }, user)
       .then(function(user) {
         done(null, user);
       })

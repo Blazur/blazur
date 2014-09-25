@@ -8,6 +8,7 @@ var mongoose    = require('mongoose'),
 var UserSchema = new mongoose.Schema({
   email: {
     type: String,
+    lowercase: true,
     required: true,
     unique: true
   },
@@ -22,17 +23,29 @@ var UserSchema = new mongoose.Schema({
     }
   ],
 
-  providers: {
-    github: {
-      id: String,
-      token: String,
-      gravatarId: String
-    },
-    local: {
-      password: String
-    }
-  }
+  provider: String,
+
+  github: {
+    id: String,
+    token: String,
+    avatar_url: String
+  },
+
+  developer: {
+    type: Boolean,
+    default: false
+  },
+
+  skills: []
 });
+
+
+UserSchema
+  .path('email')
+  .validate(function(email){
+    return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email);
+  }, 'Not A Valid Email');
+
 
 UserSchema.statics.findOneOrCreateOne = function(query, maybe) {
   if (!query) {

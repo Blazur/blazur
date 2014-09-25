@@ -5,6 +5,7 @@ var errors = require('./components/errors');
 exports = module.exports = function(app) {
 
   app.use('/api/users', require('./api/user'));
+  app.use('/api/jobs', require('./api/job'));
   app.use('/auth', require('./auth'));
 
   app.route('/*(api|auth|fonts|images|scripts|styles|bower_components|)/*')

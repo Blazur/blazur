@@ -76,20 +76,25 @@
 
     <script type="text/ng-template" id="profile/post-a-job.html">
       <div class="main">
-        <new-job></new-job>
+        <div class="job-form g-wide--full g-wide--last g-wide--push-1">
+          <form name="jobForm" novalidate ng-submit="createJob(jobForm)">
+            <paper-input label="Job Title" type="text" value="job.name" required ng-minlength="5" ng-maxlength="15">
+            </paper-input>
+
+            <paper-input label="Job Price" type="number" value="job.price" required>
+            </paper-input>
+
+            <paper-input label="Job description" type="text" value="job.description" required ng-minlength="5" ng-maxlength="15">
+            </paper-input>
+            <paper-button type="submit" ng-disabled="jobForm.$invalid" class="" ripple="accent" text="done"></paper-button>
+            {{ job | json }}
+          </form>
+        </div>
       </div>
     </script>
 
     <script type="text/ng-template" id="new-job.html">
-      <div class="job-form g-wide--full g-wide--last g-wide--push-1">
-        <form name="jobForm" novalidate ng-submit="createJob()">
-          <paper-input label="job title" type="text" value="job.title" required ng-minlength="5" ng-maxlength="15"></paper-input>
-          <div class="fx-fade-down fx-speed-300 fx-easing-sine" ng-if="ready">
-            <paper-input label="price" type="number" value="job.price" required></paper-input>
-          </div>
-          {{ job | json }}
-        </form>
-      </div>
+
     </script>
 
     <script type="text/ng-template" id="credit-card.html">
@@ -149,7 +154,7 @@
       <div id="profile-container" class="canvas">
         <div id="side-bar" class="g-wide--1 g-wide--last shadow-2-right">
           <section>
-            <img ng-src="http://www.gravatar.com/avatar/{{ user.providers.github.gravatarId }}.png" alt="{{ user.username }}"/>
+            <img ng-src="{{ user.github.avatar_url }}" alt="{{ user.username }}"/>
             <h3>{{ user.name }}</h3>
           </section>
           <ul>

@@ -56,6 +56,18 @@
     init: function() {
 
     },
-    inject: ['$scope']
+
+    createJob: function(form) {
+      console.log(form);
+      if (form.$valid) {
+        this.$http({
+          method: 'POST',
+          url: 'api/jobs',
+          data: this.$.job
+        });
+      }
+
+    },
+    inject: ['$scope', '$http']
   });
 }());
